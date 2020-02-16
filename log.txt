@@ -1,0 +1,46 @@
+make[1]: 进入目录“/home/vmware/xdocker/shbin”
+cp -rf xdocker_ldd_and_cp_lib64.sh /bin/
+cp -rf xdocker_profile_template.sh /bin/
+cp -rf xdocker_etc_profile_template.sh /bin/
+cp -rf xdocker_install_test.sh /bin/
+cp -rf xdocker_create_image_rhel-7.4-x86_64.sh /bin/
+cp -rf xdocker_create_image_rhel-7.4-gcc-x86_64.sh /bin/
+cp -rf xdocker_create_image_rhel-7.4-sshd-x86_64.sh /bin/
+cp -rf xdocker_container_root.sh /bin/
+make[1]: 离开目录“/home/vmware/xdocker/shbin”
+make[1]: 进入目录“/home/vmware/xdocker/src”
+make[2]: 进入目录“/home/vmware/xdocker/src/util”
+gcc -g -fPIC -O2 -Wall -Werror -fno-strict-aliasing -I. -I/usr/include -I/usr/include -std=gnu99  -c list.c
+gcc -g -fPIC -O2 -Wall -Werror -fno-strict-aliasing -I. -I/usr/include -I/usr/include -std=gnu99  -c LOGC.c
+In file included from LOGC.c:1:0:
+LOGC.c: In function ‘WriteLogcBaseV’:
+LOGC.h:71:16: error: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Werror=unused-result]
+ #define WRITE  write
+LOGC.c:221:3: note: in expansion of macro ‘WRITE’
+   WRITE( 1 , log_buffer , log_buflen );
+   ^~~~~
+LOGC.h:71:16: error: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Werror=unused-result]
+ #define WRITE  write
+LOGC.c:235:3: note: in expansion of macro ‘WRITE’
+   WRITE( fd , log_buffer , log_buflen );
+   ^~~~~
+LOGC.c: In function ‘WriteHexLogcBaseV’:
+LOGC.h:71:16: error: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Werror=unused-result]
+ #define WRITE  write
+LOGC.c:444:3: note: in expansion of macro ‘WRITE’
+   WRITE( 1 , hexlog_buffer , hexlog_buflen );
+   ^~~~~
+LOGC.h:71:16: error: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Werror=unused-result]
+ #define WRITE  write
+LOGC.c:458:3: note: in expansion of macro ‘WRITE’
+   WRITE( fd , hexlog_buffer , hexlog_buflen );
+   ^~~~~
+cc1: all warnings being treated as errors
+makefile.Linux:30: recipe for target 'LOGC.o' failed
+make[2]: *** [LOGC.o] Error 1
+make[2]: 离开目录“/home/vmware/xdocker/src/util”
+makefile.Linux:62: recipe for target 'install' failed
+make[1]: *** [install] Error 1
+make[1]: 离开目录“/home/vmware/xdocker/src”
+makefile.Linux:61: recipe for target 'install' failed
+make: *** [install] Error 1

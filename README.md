@@ -1,2 +1,1 @@
-# BWZY
-# 不务正业
+see README.zh-CN.md in Chinese
