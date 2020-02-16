@@ -1,3 +1,4 @@
+MAKEFILE_POSTFIX=.Linux
 ###### 源文件配置区
 # 编译宏
 AR		=	ar

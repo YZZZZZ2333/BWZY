@@ -1,3 +1,4 @@
+MAKEFILE_POSTFIX=.Linux
 ###### всд©б╪еДжцгЬ
 DIROBJS		= \
 			util \
