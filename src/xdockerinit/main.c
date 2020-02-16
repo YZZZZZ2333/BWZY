@@ -21,7 +21,7 @@ int main( int argc , char *argv[] ) {
 	
 	for( i = 1 ; i < argc ; i++ ) {
 		if( STRCMP( argv[i] , == , "-v" ) ) {
-			E( "xdockerinit v%s build %s %s\n" , _xdocker_VERSION , __DATE__ , __TIME__ )
+			E( "xdockerinit v%s build %s %s\n" , _XDOCKER_VERSION , __DATE__ , __TIME__ )
 			free( env );
 			exit(0);
 		}
@@ -42,13 +42,13 @@ int main( int argc , char *argv[] ) {
 		return -7;
 	}
 	
-	p = getenv( "xdocker_ALIVE_PIPE" ) ;
+	p = getenv( "XDOCKER_ALIVE_PIPE" ) ;
 	if( p == NULL ) {
 		E( "*** ERROR : please run me by xdocker\n" )
 		return 1;
 	}
 	else {
-		I( "getenv(\"xdocker_ALIVE_PIPE\")[%s]\n" , p )
+		I( "getenv(\"XDOCKER_ALIVE_PIPE\")[%s]\n" , p )
 	}
 	env->alive_pipe_0 = atoi(p) ;
 	

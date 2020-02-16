@@ -1,5 +1,5 @@
-#ifndef _H_xdockerINIT_IN_
-#define _H_xdockerINIT_IN_
+#ifndef _H_XDOCKERINIT_IN_
+#define _H_XDOCKERINIT_IN_
 
 #include "xdocker_util.h"
 

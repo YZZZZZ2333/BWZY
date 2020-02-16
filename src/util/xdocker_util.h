@@ -117,8 +117,8 @@ extern "C" {
 #define CGROUP_PATH		"/sys/fs/cgroup"
 #endif
 
-#ifndef xdockerIMAGE_FILE_EXTNAME
-#define xdockerIMAGE_FILE_EXTNAME	"xdockerimage"
+#ifndef XDOCKERIMAGE_FILE_EXTNAME
+#define XDOCKERIMAGE_FILE_EXTNAME	"xdockerimage"
 #endif
 
 #ifndef SREPO_LEN_MAX
@@ -321,7 +321,7 @@ extern "C" {
 		ERRORLOGC( __VA_ARGS__ ) \
 	} \
 
-extern char		*_xdocker_VERSION ;
+extern char		*_XDOCKER_VERSION ;
 
 /*
  * string

@@ -12,11 +12,11 @@ int DoAction_import( struct xdockerEnvironment *env ) {
 	
 	/* preprocess input parameters */
 	image_file_len = strlen(env->cmd_para.__image_file) ;
-	IxTER1( (image_file_len < sizeof(xdockerIMAGE_FILE_EXTNAME)-1) , "image file[%s] too small\n" , env->cmd_para.__image_file )
-	IxTER1( (STRCMP(env->cmd_para.__image_file+image_file_len-(sizeof(xdockerIMAGE_FILE_EXTNAME)-1),!=,xdockerIMAGE_FILE_EXTNAME)) , "image file name[%s] invalid\n" , env->cmd_para.__image_file )
+	IxTER1( (image_file_len < sizeof(XDOCKERIMAGE_FILE_EXTNAME)-1) , "image file[%s] too small\n" , env->cmd_para.__image_file )
+	IxTER1( (STRCMP(env->cmd_para.__image_file+image_file_len-(sizeof(XDOCKERIMAGE_FILE_EXTNAME)-1),!=,XDOCKERIMAGE_FILE_EXTNAME)) , "image file name[%s] invalid\n" , env->cmd_para.__image_file )
 	
 	memset( image_id , 0x00 , sizeof(image_id) );
-	strncpy( image_id , env->cmd_para.__image_file , image_file_len-(sizeof(xdockerIMAGE_FILE_EXTNAME)-1)-1 );
+	strncpy( image_id , env->cmd_para.__image_file , image_file_len-(sizeof(XDOCKERIMAGE_FILE_EXTNAME)-1)-1 );
 	SplitImageVersion( image_id , version , sizeof(version) );
 	
 	Snprintf( env->image_path_base , sizeof(env->image_path_base)-1 , "%s/%s/%s" , env->images_path_base , image_id , (version[0]?version:"_") );

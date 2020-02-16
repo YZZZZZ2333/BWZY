@@ -352,7 +352,7 @@ static int CloneEntry( void *pv ) {
 	
 	/* save alive pipe fd */
 	Snprintf( fd_str , sizeof(fd_str) , "%d" , env->alive_pipe[0] );
-	setenv( "xdocker_ALIVE_PIPE" , fd_str , 1 );
+	setenv( "XDOCKER_ALIVE_PIPE" , fd_str , 1 );
 	
 	close( env->alive_pipe[1] );
 	

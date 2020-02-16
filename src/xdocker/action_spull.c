@@ -13,7 +13,7 @@ int DoAction_spull( struct xdockerEnvironment *env ) {
 	int		nret = 0 ;
 	
 	/* preprocess input parameters */
-	Snprintf( image_file , sizeof(image_file) , "%s.%s" , env->cmd_para.__image , xdockerIMAGE_FILE_EXTNAME );
+	Snprintf( image_file , sizeof(image_file) , "%s.%s" , env->cmd_para.__image , XDOCKERIMAGE_FILE_EXTNAME );
 	
 	memset( image_id , 0x00 , sizeof(image_id) );
 	strncpy( image_id , env->cmd_para.__image , sizeof(image_id)-1 );
