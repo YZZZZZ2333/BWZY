@@ -1,6 +1,8 @@
+
 #include "xdocker_in.h"
 
-int DoShow_container_root( struct xdockerEnvironment *env ) {
+int DoShow_container_root( struct CockerEnvironment *env )
+{
 	char		container_root_path[ PATH_MAX + 1 ] ;
 	
 	int		nret = 0 ;

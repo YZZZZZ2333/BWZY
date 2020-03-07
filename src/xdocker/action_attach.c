@@ -1,3 +1,4 @@
+
 #include "xdocker_in.h"
 
 #define TRY_CONNECT_COUNT	5
@@ -5,12 +6,14 @@
 struct termios          	g_termios_init ;
 struct termios          	g_termios_raw ;
 
-static void RestoreTerminalAttr() {
+static void RestoreTerminalAttr()
+{
 	tcsetattr( 0 , TCSANOW , & g_termios_init );
 	return; 
 }
 
-static int tcp_and_pts_bridge( int connected_sock ) {
+static int tcp_and_pts_bridge( int connected_sock )
+{
 	struct pollfd	poll_fds[ 2 ] ;
 	char		buf[ 4096 ] ;
 	int		len ;
@@ -23,7 +26,8 @@ static int tcp_and_pts_bridge( int connected_sock ) {
 	cfmakeraw( & g_termios_raw );
 	tcsetattr( STDIN_FILENO , TCSANOW , & g_termios_raw ) ;
 	
-	while(1) {
+	while(1)
+	{
 		poll_fds[0].fd = connected_sock ;
 		poll_fds[0].events = POLLIN|POLLHUP ;
 		poll_fds[0].revents = 0 ;
@@ -31,40 +35,49 @@ static int tcp_and_pts_bridge( int connected_sock ) {
 		poll_fds[1].events = POLLIN|POLLHUP ;
 		poll_fds[1].revents = 0 ;
 		nret = poll( poll_fds , 2 , -1 ) ;
-		if( nret == -1 ) {
+		if( nret == -1 )
+		{
 			E( "*** ERROR : select failed , errno[%d]\n" , errno )
 			return -1;
 		}
 		
-		if( (poll_fds[0].revents&POLLIN) || (poll_fds[0].revents&POLLHUP) ) {
+		if( (poll_fds[0].revents&POLLIN) || (poll_fds[0].revents&POLLHUP) )
+		{
 			len = read( connected_sock , buf , sizeof(buf)-1 ) ;
-			if( len == 0 ) {
+			if( len == 0 )
+			{
 				return 0;
 			}
-			else if( len == -1 ) {
+			else if( len == -1 )
+			{
 				E( "*** ERROR : read connected_sock failed , errno[%d]\n" , errno )
 				return -1;
 			}
 			
 			nret = writen( STDOUT_FILENO , buf , len , NULL ) ;
-			if( nret == -1 ) {
+			if( nret == -1 )
+			{
 				E( "*** ERROR : writen STDOUT_FILENO failed , errno[%d]\n" , errno )
 				return -1;
 			}
 		}
 		
-		if( (poll_fds[1].revents&POLLIN) || (poll_fds[1].revents&POLLHUP) ) {
+		if( (poll_fds[1].revents&POLLIN) || (poll_fds[1].revents&POLLHUP) )
+		{
 			len = read( STDIN_FILENO , buf , sizeof(buf)-1 ) ;
-			if( len == 0 ) {
+			if( len == 0 )
+			{
 				return 0;
 			}
-			else if( len == -1 ) {
+			else if( len == -1 )
+			{
 				E( "*** ERROR : read STDIN_FILENO failed , errno[%d]\n" , errno )
 				return -1;
 			}
 			
 			nret = writen( connected_sock , buf , len , NULL ) ;
-			if( nret == -1 ) {
+			if( nret == -1 )
+			{
 				E( "*** ERROR : writen connected_sock failed , errno[%d]\n" , errno )
 				return -1;
 			}
@@ -74,7 +87,8 @@ static int tcp_and_pts_bridge( int connected_sock ) {
 	return 0;
 }
 
-int DoAction_attach( struct xdockerEnvironment *env ) {
+int DoAction_attach( struct CockerEnvironment *env )
+{
 	char			container_merge_path[ PATH_MAX + 1 ] ;
 	
 	int			connected_sock ;
@@ -98,12 +112,14 @@ int DoAction_attach( struct xdockerEnvironment *env ) {
 	
 	/* client connect to xdockerinit */
 	connected_sock = socket( AF_UNIX , SOCK_STREAM , 0 ) ;
-	if( connected_sock == -1 ) {
+	if( connected_sock == -1 )
+	{
 		E( "*** ERROR : socket failed , errno[%d]\n" , errno )
 		return -1;
 	}
 	
-	for( i = 0 ; i < TRY_CONNECT_COUNT ; i++ ) {
+	for( i = 0 ; i < TRY_CONNECT_COUNT ; i++ )
+	{
 		memset( & connected_addr , 0x00 , sizeof(struct sockaddr_un) );
 		connected_addr.sun_family = AF_UNIX ;
 		snprintf( connected_addr.sun_path , sizeof(connected_addr.sun_path)-1 , "%s/dev/xdocker.sock" , container_merge_path );
@@ -113,32 +129,37 @@ int DoAction_attach( struct xdockerEnvironment *env ) {
 		
 		sleep(1);
 	}
-	if( i >= TRY_CONNECT_COUNT ) {
+	if( i >= TRY_CONNECT_COUNT )
+	{
 		E( "*** ERROR : connect[%s] failed , errno[%d]\n" , connected_addr.sun_path , errno )
 		return -1;
 	}
 	
 	nret = ioctl( STDIN_FILENO , TIOCGWINSZ , & origin_winsize ) ;
-	if( nret == -1 ) {
+	if( nret == -1 )
+	{
 		E( "*** ERROR : ioctl STDIN_FILENO for origin failed , errno[%d]\n" , errno )
 		return -1;
 	}
 	
 	nret = send( connected_sock , "C" , 1 , 0 ) ;
-	if( nret == -1 ) {
+	if( nret == -1 )
+	{
 		E( "*** ERROR : send 'C' failed , errno[%d]\n" , errno )
 		return -1;
 	}
 	
 	nret = send( connected_sock , (void*) & origin_winsize , sizeof(struct winsize) , 0 ) ;
-	if( nret == -1 ) {
+	if( nret == -1 )
+	{
 		E( "*** ERROR : send winsize failed , errno[%d]\n" , errno )
 		return -1;
 	}
 	
 	bash_cmd = "/bin/bash -l" ;
 	nret = send( connected_sock , bash_cmd , strlen(bash_cmd) , 0 ) ;
-	if( nret == -1 ) {
+	if( nret == -1 )
+	{
 		E( "*** ERROR : send bash_cmd failed , errno[%d]\n" , errno )
 		return -1;
 	}

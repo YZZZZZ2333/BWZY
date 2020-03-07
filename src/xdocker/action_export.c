@@ -1,6 +1,8 @@
+
 #include "xdocker_in.h"
 
-int DoAction_export( struct xdockerEnvironment *env ) {
+int DoAction_export( struct CockerEnvironment *env )
+{
 	char		image[ IMAGES_ID_LEN_MAX + 1 ] ;
 	char		version[ PATH_MAX + 1 ] ;
 	char		image_file[ PATH_MAX + 1 ] ;

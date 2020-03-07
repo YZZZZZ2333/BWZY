@@ -1,6 +1,8 @@
+
 #include "xdocker_in.h"
 
-int _DoAction_kill( struct xdockerEnvironment *env , int signal_no ) {
+int _DoAction_kill( struct CockerEnvironment *env , int signal_no )
+{
 	char		container_pid_file[ PATH_MAX + 1 ] ;
 	char		pid_str[ PID_LEN_MAX + 1 ] ;
 	pid_t		pid ;
@@ -23,15 +25,19 @@ int _DoAction_kill( struct xdockerEnvironment *env , int signal_no ) {
 	
 	/* stop container */
 	pid = atoi(pid_str) ;
-	if( pid > 0 ) {
+	if( pid > 0 )
+	{
 		nret = kill( pid , 0 ) ;
-		if( nret == 0 ) {
+		if( nret == 0 )
+		{
 			/* kill clone create_pty */
 			kill( pid , signal_no );
 			
-			while(1) {
+			while(1)
+			{
 				nret = kill( pid , 0 ) ;
-				if( nret == -1 ) {
+				if( nret == -1 )
+				{
 					/* destroy container */
 					CleanContainerResource( env );
 					break;
@@ -40,23 +46,27 @@ int _DoAction_kill( struct xdockerEnvironment *env , int signal_no ) {
 				sleep(1);
 			}
 		}
-		else {
+		else
+		{
 			printf( "*** ERROR : container[%s] expection\n" , pid_str );
 			
-			if( env->cmd_para.__forcely ) {
+			if( env->cmd_para.__forcely )
+			{
 				/* destroy container */
 				CleanContainerResource( env );
 			}
 		}
 	}
-	else {
+	else
+	{
 		printf( "*** ERROR : container is not running\n" );
 	}
 	
 	return 0;
 }
 
-int DoAction_shutdown( struct xdockerEnvironment *env ) {
+int DoAction_shutdown( struct CockerEnvironment *env )
+{
 	int		nret = 0 ;
 	
 	nret = _DoAction_kill( env , SIGTERM ) ;
@@ -66,7 +76,8 @@ int DoAction_shutdown( struct xdockerEnvironment *env ) {
 	return nret;
 }
 
-int DoAction_kill( struct xdockerEnvironment *env ) {
+int DoAction_kill( struct CockerEnvironment *env )
+{
 	int		nret = 0 ;
 	
 	nret = _DoAction_kill( env , SIGKILL ) ;

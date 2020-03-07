@@ -1,6 +1,8 @@
+
 #include "xdocker_in.h"
 
-int DoAction_getfile( struct xdockerEnvironment *env ) {
+int DoAction_getfile( struct CockerEnvironment *env )
+{
 	char		src_file[ PATH_MAX + 1 ] ;
 	char		cmd[ 4096 ] ;
 	

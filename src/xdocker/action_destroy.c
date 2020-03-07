@@ -1,8 +1,10 @@
+
 #include "xdocker_in.h"
 
 #define WAIT_FOR_SHUTDOWN_COUNT		5
 
-int DoAction_destroy( struct xdockerEnvironment *env ) {
+int DoAction_destroy( struct CockerEnvironment *env )
+{
 	int		i ;
 	char		pid_str[ PID_LEN_MAX + 1 ] ;
 	pid_t		pid ;
@@ -22,15 +24,18 @@ int DoAction_destroy( struct xdockerEnvironment *env ) {
 	GetEthernetNames( env , env->cmd_para.__container );
 	
 	/* if --shutdown optional */
-	if( env->cmd_para.__shutdown ) {
+	if( env->cmd_para.__shutdown )
+	{
 		nret = _DoAction_kill( env , SIGTERM ) ;
-		if( nret ) {
+		if( nret )
+		{
 			if( env->cmd_para.__forcely == NULL )
 				return -1;
 		}
 		
 		Snprintf( container_pid_file , sizeof(container_pid_file) , "%s/%s/pid" , env->containers_path_base , env->cmd_para.__container ) ;
-		for( i = 0 ; i < WAIT_FOR_SHUTDOWN_COUNT ; i++ ) {
+		for( i = 0 ; i < WAIT_FOR_SHUTDOWN_COUNT ; i++ )
+		{
 			nret = access( container_pid_file , F_OK ) ;
 			if( nret == -1 )
 				break;
@@ -45,11 +50,13 @@ int DoAction_destroy( struct xdockerEnvironment *env ) {
 	memset( pid_str , 0x00 , sizeof(pid_str) );
 	memset( container_pid_file , 0x00 , sizeof(container_pid_file) );
 	nret = ReadFileLine( pid_str , sizeof(pid_str)-1 , container_pid_file , sizeof(container_pid_file) , "%s/%s/pid" , env->containers_path_base , env->cmd_para.__container ) ;
-	if( nret == 0 ) {
+	if( nret == 0 )
+	{
 		TrimEnter( pid_str );
 		
 		pid = atoi(pid_str) ;
-		if( pid > 0 ) {
+		if( pid > 0 )
+		{
 			nret = kill( pid , 0 ) ;
 			I0TER1( "*** ERROR : container is already running\n" )
 		}
@@ -60,7 +67,8 @@ int DoAction_destroy( struct xdockerEnvironment *env ) {
 	I1TER1( "*** ERROR : container '%s' invalid\n" , env->cmd_para.__container )
 	
 	/* clean container resouce */
-	if( env->cmd_para.__forcely ) {
+	if( env->cmd_para.__forcely )
+	{
 		CleanContainerResource( env );
 	}
 	
@@ -74,12 +82,14 @@ int DoAction_destroy( struct xdockerEnvironment *env ) {
 	TrimEnter( net );
 	
 	/* destroy network-namespace */
-	if( STRCMP( net , == , "BRIDGE" ) || env->cmd_para.__forcely ) {
+	if( STRCMP( net , == , "BRIDGE" ) || env->cmd_para.__forcely )
+	{
 		nret = SnprintfAndSystem( cmd , sizeof(cmd) , "ip netns del %s" , env->netns_name ) ;
 		INTEFR1( "*** ERROR : system [%s] failed[%d] , errno[%d]\n" , cmd , nret , errno )
 		EIDTI( "system [%s] ok\n" , cmd )
 	}
-	else if( STRCMP( net , == , "CUSTOM" ) ) {
+	else if( STRCMP( net , == , "CUSTOM" ) )
+	{
 		nret = SnprintfAndSystem( cmd , sizeof(cmd) , "ip netns del %s" , env->netns_name ) ;
 		INTEFR1( "*** ERROR : system [%s] failed[%d] , errno[%d]\n" , cmd , nret , errno )
 		EIDTI( "system [%s] ok\n" , cmd )

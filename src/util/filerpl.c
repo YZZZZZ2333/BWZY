@@ -2,7 +2,8 @@
 
 #define _DEBUG				0
 
-int strrpl( char **pp_buf , int *p_buf_len , int *p_buf_size , char *key , int key_len , char *value , int value_len ) {
+int strrpl( char **pp_buf , int *p_buf_len , int *p_buf_size , char *key , int key_len , char *value , int value_len )
+{
 	int		diff_len ;
 	char		*p = NULL ;
 	int		p_offset ;
@@ -33,7 +34,8 @@ int strrpl( char **pp_buf , int *p_buf_len , int *p_buf_size , char *key , int k
 		printf( "strrpl - while - p[%.10s...]\n" , p );
 #endif
 		
-		if( (*p_buf_len) + diff_len > (*p_buf_size)-1 ) {
+		if( (*p_buf_len) + diff_len > (*p_buf_size)-1 )
+		{
 			char	*new_buf ;
 			int	new_buf_size ;
 			
@@ -72,8 +74,10 @@ int strrpl( char **pp_buf , int *p_buf_len , int *p_buf_size , char *key , int k
 	return 0;
 }
 
-static int _PrepareBuffer( struct stat *file_stat , char **pp_buf , int *p_buf_len , int *p_buf_size ) {
-	if( (*pp_buf) == NULL ) {
+static int _PrepareBuffer( struct stat *file_stat , char **pp_buf , int *p_buf_len , int *p_buf_size )
+{
+	if( (*pp_buf) == NULL )
+	{
 		(*p_buf_size) = file_stat->st_size + 1 ;
 		(*pp_buf) = malloc( (*p_buf_size) + 1 ) ;
 		if( (*pp_buf) == NULL )
@@ -81,7 +85,8 @@ static int _PrepareBuffer( struct stat *file_stat , char **pp_buf , int *p_buf_l
 		memset( (*pp_buf) , 0x00 , (*p_buf_size) );
 		(*p_buf_len) = 0 ;
 	}
-	else if( (*p_buf_size)-1 < file_stat->st_size ) {
+	else if( (*p_buf_size)-1 < file_stat->st_size )
+	{
 		int		new_buf_size ;
 		char		*new_buf = NULL ;
 		
@@ -95,14 +100,16 @@ static int _PrepareBuffer( struct stat *file_stat , char **pp_buf , int *p_buf_l
 		(*p_buf_size) = new_buf_size ;
 		(*p_buf_len) = 0 ;
 	}
-	else {
+	else
+	{
 		memset( (*pp_buf) , 0x00 , (*p_buf_size) );
 	}
 	
 	return 0;
 }
 
-int FreeRplBuffer( char **pp_buf , int *p_buf_len , int *p_buf_size ) {
+int FreeRplBuffer( char **pp_buf , int *p_buf_len , int *p_buf_size )
+{
 	if( pp_buf == NULL || p_buf_len == NULL || p_buf_size == NULL )
 		return FILERPL_ERROR_PARAMETER;
 	
@@ -116,7 +123,8 @@ int FreeRplBuffer( char **pp_buf , int *p_buf_len , int *p_buf_size ) {
 	return 0;
 }
 
-int LoadRplTemplateFile( char *tpl_pathfilename , char **pp_tpl_buf , int *p_tpl_buf_len , int *p_tpl_buf_size ) {
+int LoadRplTemplateFile( char *tpl_pathfilename , char **pp_tpl_buf , int *p_tpl_buf_len , int *p_tpl_buf_size )
+{
 	int		fd ;
 	struct stat	file_stat ;
 	
@@ -130,19 +138,22 @@ int LoadRplTemplateFile( char *tpl_pathfilename , char **pp_tpl_buf , int *p_tpl
 		return FILERPL_ERROR_OPEN;
 	
 	nret = fstat( fd , & file_stat ) ;
-	if( nret == -1 ) {
+	if( nret == -1 )
+	{
 		close( fd );
 		return FILERPL_ERROR_FSTAT;
 	}
 	
 	nret = _PrepareBuffer( & file_stat , pp_tpl_buf , p_tpl_buf_len , p_tpl_buf_size ) ;
-	if( nret ) {
+	if( nret )
+	{
 		close( fd );
 		return nret;
 	}
 	
 	(*p_tpl_buf_len) = read( fd , (*pp_tpl_buf) , file_stat.st_size ) ;
-	if( (*p_tpl_buf_len) < file_stat.st_size ) {
+	if( (*p_tpl_buf_len) < file_stat.st_size )
+	{
 		close( fd );
 		return FILERPL_ERROR_READ;
 	}
@@ -152,7 +163,8 @@ int LoadRplTemplateFile( char *tpl_pathfilename , char **pp_tpl_buf , int *p_tpl
 	return 0;
 }
 
-int LoadRplMappingFile( char *map_pathfilename , char **pp_map_buf , int *p_map_buf_len , int *p_map_buf_size ) {
+int LoadRplMappingFile( char *map_pathfilename , char **pp_map_buf , int *p_map_buf_len , int *p_map_buf_size )
+{
 	int		fd ;
 	struct stat	file_stat ;
 	char		*base = NULL ;
@@ -173,19 +185,22 @@ int LoadRplMappingFile( char *map_pathfilename , char **pp_map_buf , int *p_map_
 		return FILERPL_ERROR_OPEN;
 	
 	nret = fstat( fd , & file_stat ) ;
-	if( nret == -1 ) {
+	if( nret == -1 )
+	{
 		close( fd );
 		return FILERPL_ERROR_FSTAT;
 	}
 	
 	nret = _PrepareBuffer( & file_stat , pp_map_buf , p_map_buf_len , p_map_buf_size ) ;
-	if( nret ) {
+	if( nret )
+	{
 		close( fd );
 		return nret;
 	}
 	
 	base = mmap( NULL , file_stat.st_size , PROT_READ , MAP_SHARED , fd , 0 ) ;
-	if( base == NULL ) {
+	if( base == NULL )
+	{
 		close( fd );
 		return FILERPL_ERROR_MMAP;
 	}
@@ -194,7 +209,8 @@ int LoadRplMappingFile( char *map_pathfilename , char **pp_map_buf , int *p_map_
 	
 	p1 = base ;
 	p2 = (*pp_map_buf) ;
-	while(1) {
+	while(1)
+	{
 		/*
 		key value\n
 		 key value\n
@@ -202,21 +218,26 @@ int LoadRplMappingFile( char *map_pathfilename , char **pp_map_buf , int *p_map_
 		*/
 		
 		/* before key */
-		do {
-			if( (*p1) != ' ' && (*p1) != '\t' ) {
+		do
+		{
+			if( (*p1) != ' ' && (*p1) != '\t' )
+			{
 				break;
 			}
-			else if( (*p1) == '\0' ) {
+			else if( (*p1) == '\0' )
+			{
 				break;
 			}
-			else if( (*p1) == '\r' || (*p1) == '\n' ) {
+			else if( (*p1) == '\r' || (*p1) == '\n' )
+			{
 				break;
 			}
 		}
 		while( p1++ );
 		if( (*p1) == '\0' )
 			break;
-		if( (*p1) == '\r' || (*p1) == '\n' ) {
+		if( (*p1) == '\r' || (*p1) == '\n' )
+		{
 			p1++;
 			continue;
 		}
@@ -224,15 +245,19 @@ int LoadRplMappingFile( char *map_pathfilename , char **pp_map_buf , int *p_map_
 		p_key_begin = p1 ;
 		
 		/* key */
-		do {
-			if( (*p1) == ' ' || (*p1) == '\t'  ) {
+		do
+		{
+			if( (*p1) == ' ' || (*p1) == '\t'  )
+			{
 				break;
 			}
-			else if( (*p1) == '\0' ) {
+			else if( (*p1) == '\0' )
+			{
 				munmap( base , 0 );
 				return FILERPL_ERROR_MAP_INVALID_1;
 			}
-			else if( (*p1) == '\r' || (*p1) == '\n' ) {
+			else if( (*p1) == '\r' || (*p1) == '\n' )
+			{
 				munmap( base , 0 );
 				return FILERPL_ERROR_MAP_INVALID_2;
 			}
@@ -240,7 +265,8 @@ int LoadRplMappingFile( char *map_pathfilename , char **pp_map_buf , int *p_map_
 		while( p1++ );
 		
 		key_len = p1 - p_key_begin ;
-		if( key_len <= 0 ) {
+		if( key_len <= 0 )
+		{
 			munmap( base , 0 );
 			return FILERPL_ERROR_MAP_INVALID_3;
 		}
@@ -249,7 +275,8 @@ int LoadRplMappingFile( char *map_pathfilename , char **pp_map_buf , int *p_map_
 		(*p_map_buf_len) += key_len + 1 ;
 		
 		/* before value */
-		do {
+		do
+		{
 			if( (*p1) != ' ' && (*p1) != '\t' )
 			{
 				break;
@@ -270,7 +297,8 @@ int LoadRplMappingFile( char *map_pathfilename , char **pp_map_buf , int *p_map_
 		p_value_begin = p1 ;
 		
 		/* value */
-		do {
+		do
+		{
 			if( (*p1) == ' ' || (*p1) == '\t'  )
 			{
 				break;
@@ -301,14 +329,16 @@ int LoadRplMappingFile( char *map_pathfilename , char **pp_map_buf , int *p_map_
 	return 0;
 }
 
-int ConvertRplBuffer( char **pp_ins_buf , int *p_ins_buf_len , int *p_ins_buf_size , char *p_map_buf , int map_buf_len ) {
+int ConvertRplBuffer( char **pp_ins_buf , int *p_ins_buf_len , int *p_ins_buf_size , char *p_map_buf , int map_buf_len )
+{
 	char		*key = NULL ;
 	char		*value = NULL ;
 	
 	int		nret = 0 ;
 	
 	key = p_map_buf ;
-	while( (*key) ) {
+	while( (*key) )
+	{
 		value = key + strlen(key) + 1 ;
 		
 #if _DEBUG
@@ -325,7 +355,8 @@ int ConvertRplBuffer( char **pp_ins_buf , int *p_ins_buf_len , int *p_ins_buf_si
 	return 0;
 }
 
-int DumpRplInstanceFile( char *p_ins_buf , int ins_buf_len , char *ins_pathfilename ) {
+int DumpRplInstanceFile( char *p_ins_buf , int ins_buf_len , char *ins_pathfilename )
+{
 	int		fd ;
 	
 	int		nret = 0 ;
@@ -338,7 +369,8 @@ int DumpRplInstanceFile( char *p_ins_buf , int ins_buf_len , char *ins_pathfilen
 		return FILERPL_ERROR_OPEN;
 	
 	nret = write( fd , p_ins_buf , ins_buf_len ) ;
-	if( nret < ins_buf_len ) {
+	if( nret < ins_buf_len )
+	{
 		close( fd );
 		return FILERPL_ERROR_WRITE;
 	}
@@ -348,7 +380,8 @@ int DumpRplInstanceFile( char *p_ins_buf , int ins_buf_len , char *ins_pathfilen
 	return 0;
 }
 
-int filerpl( char *tpl_pathfilename , char *map_pathfilename , char *ins_pathfilename ) {
+int filerpl( char *tpl_pathfilename , char *map_pathfilename , char *ins_pathfilename )
+{
 	char		*ins_buf = NULL ;
 	int		ins_buf_len = 0 ;
 	int		ins_buf_size = 0 ;
@@ -381,18 +414,20 @@ int filerpl( char *tpl_pathfilename , char *map_pathfilename , char *ins_pathfil
 #if _DEBUG
 	printf( "ConvertRplFile - map_buf[%d/%d][%s]\n" , map_buf_len , map_buf_size , map_buf );
 	
+	{
 	char		*key = NULL ;
 	char		*value = NULL ;
 	
 	key = map_buf ;
-	while( (*key) ) {
+	while( (*key) )
+	{
 		value = key + strlen(key) + 1 ;
 		
 		printf( "ConvertRplFile - key[%s] value[%s]\n" , key , value );
 		
 		key = value + strlen(value) + 1 ;
 	}
-	
+	}
 #endif
 	
 #if _DEBUG
@@ -422,15 +457,18 @@ int filerpl( char *tpl_pathfilename , char *map_pathfilename , char *ins_pathfil
 }
 
 #if 0
-int main() {
+int main()
+{
 	int		nret = 0 ;
 	
 	nret = ConvertRplFile( "tpl.txt" , "map.txt" , "ins.txt" ) ;
-	if( nret ) {
+	if( nret )
+	{
 		printf( "ConvertRplFile failed[%d]\n" , nret );
 		return 1;
 	}
-	else {
+	else
+	{
 		printf( "ConvertRplFile ok\n" );
 		return 0;
 	}

@@ -1,6 +1,8 @@
+
 #include "xdocker_in.h"
 
-int DoShow_images( struct xdockerEnvironment *xdocker_env ) {
+int DoShow_images( struct CockerEnvironment *xdocker_env )
+{
 	DIR		*dir = NULL ;
 	struct dirent	*dirent = NULL ;
 	DIR		*dir2 = NULL ;
@@ -25,7 +27,8 @@ int DoShow_images( struct xdockerEnvironment *xdocker_env ) {
 	
 	count = 0 ;
 	dir = opendir( xdocker_env->images_path_base ) ;
-	while( dir ) {
+	while( dir )
+	{
 		dirent = readdir( dir ) ;
 		if( dirent == NULL )
 			break;
@@ -46,7 +49,8 @@ int DoShow_images( struct xdockerEnvironment *xdocker_env ) {
 		Snprintf( image_id , sizeof(image_id) , "%s" , dirent->d_name );
 		
 		dir2 = opendir( version_path_base ) ;
-		while( dir2 ) {
+		while( dir2 )
+		{
 			dirent2 = readdir( dir2 ) ;
 			if( dirent2 == NULL )
 				break;
@@ -78,33 +82,42 @@ int DoShow_images( struct xdockerEnvironment *xdocker_env ) {
 			memset( file_buffer , 0x00 , sizeof(file_buffer) );
 			memset( image_size_file , 0x00 , sizeof(image_size_file) );
 			nret = ReadFileLine( file_buffer , sizeof(file_buffer) , image_size_file , sizeof(image_size_file) , "%s/size" , image_path_base ) ;
-			if( nret ) {
+			if( nret )
+			{
 				nret = GetDirectorySize( image_rlayer_path , & image_size ) ;
-				if( nret ) {
+				if( nret )
+				{
 					image_size = -1 ;
 				}
-				else {
+				else
+				{
 					Snprintf( file_buffer , sizeof(file_buffer) , "%d" , image_size );
 					WriteFileLine( file_buffer , image_size_file , sizeof(image_size_file) , "%s/size" , image_path_base );
 				}
 			}
-			else {
+			else
+			{
 				stat( image_size_file , & image_size_file_stat );
 				nret = IsDirectoryNewThan( image_rlayer_path , image_size_file_stat.st_mtime ) ;
-				if( nret < 0 ) {
+				if( nret < 0 )
+				{
 					image_size = -1 ;
 				}
-				else if( nret > 0 ) {
+				else if( nret > 0 )
+				{
 					nret = GetDirectorySize( image_rlayer_path , & image_size ) ;
-					if( nret ) {
+					if( nret )
+					{
 						image_size = -1 ;
 					}
-					else {
+					else
+					{
 						Snprintf( file_buffer , sizeof(file_buffer) , "%d" , image_size );
 						WriteFileLine( file_buffer , image_size_file , sizeof(image_size_file) , "%s/size" , image_path_base );
 					}
 				}
-				else {
+				else
+				{
 					image_size = atoi(file_buffer) ;
 				}
 			}
@@ -121,7 +134,8 @@ int DoShow_images( struct xdockerEnvironment *xdocker_env ) {
 				Snprintf( image_size_str , sizeof(image_size_str) , "(unknow)" );
 			
 			/* output */
-			if( count == 0 ) {
+			if( count == 0 )
+			{
 				printf( "%-30s %-10s %-19s %-10s\n" , "image_id" , "version" , "modify_datetime" , "size" );
 				printf( "--------------------------------------------------------------------\n" );
 			}

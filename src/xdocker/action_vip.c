@@ -1,6 +1,8 @@
+
 #include "xdocker_in.h"
 
-int DoAction_vip( struct xdockerEnvironment *env ) {
+int DoAction_vip( struct CockerEnvironment *env )
+{
 	char		container_vip_file[ PATH_MAX + 1 ] ;
 	
 	int		nret = 0 ;

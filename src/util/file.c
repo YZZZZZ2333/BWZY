@@ -1,6 +1,7 @@
 #include "xdocker_util.h"
 
-int SnprintfAndCheckDir( char *path_buf , int path_bufsize , char *path_format , ... ) {
+int SnprintfAndCheckDir( char *path_buf , int path_bufsize , char *path_format , ... )
+{
 	char		*p_path = NULL ;
 	va_list		valist ;
 	struct stat	dir_stat ;
@@ -23,7 +24,8 @@ int SnprintfAndCheckDir( char *path_buf , int path_bufsize , char *path_format ,
 	return 0;
 }
 
-int SnprintfAndChangeDir( char *path_buf , int path_bufsize , char *path_format , ... ) {
+int SnprintfAndChangeDir( char *path_buf , int path_bufsize , char *path_format , ... )
+{
 	char		*p_path = NULL ;
 	va_list		valist ;
 	
@@ -38,7 +40,8 @@ int SnprintfAndChangeDir( char *path_buf , int path_bufsize , char *path_format 
 	return 0;
 }
 
-int CheckAndMakeDir( char *path ) {
+int CheckAndMakeDir( char *path )
+{
 	int		nret = 0 ;
 	
 	nret = access( path , F_OK ) ;
@@ -52,7 +55,8 @@ int CheckAndMakeDir( char *path ) {
 	return 0;
 }
 
-int SnprintfAndMakeDir( char *path_buf , int path_bufsize , char *path_format , ... ) {
+int SnprintfAndMakeDir( char *path_buf , int path_bufsize , char *path_format , ... )
+{
 	char		*p_path = NULL ;
 	va_list		valist ;
 	
@@ -71,7 +75,8 @@ int SnprintfAndMakeDir( char *path_buf , int path_bufsize , char *path_format , 
 	return 0;
 }
 
-int SnprintfAndUnlink( char *path_buf , int path_bufsize , char *path_format , ... ) {
+int SnprintfAndUnlink( char *path_buf , int path_bufsize , char *path_format , ... )
+{
 	char		*p_file = NULL ;
 	va_list		valist ;
 	
@@ -90,7 +95,8 @@ int SnprintfAndUnlink( char *path_buf , int path_bufsize , char *path_format , .
 	return 0;
 }
 
-int SnprintfAndSystem( char *cmd_buf , int cmd_bufsize , char *cmd_format , ... ) {
+int SnprintfAndSystem( char *cmd_buf , int cmd_bufsize , char *cmd_format , ... )
+{
 	char		*p_cmd = NULL ;
 	va_list		valist ;
 	
@@ -109,7 +115,8 @@ int SnprintfAndSystem( char *cmd_buf , int cmd_bufsize , char *cmd_format , ... 
 	return 0;
 }
 
-int SnprintfAndPopen( char *output_buf , int output_bufsize , char *cmd_buf , int cmd_bufsize , char *cmd_format , ... ) {
+int SnprintfAndPopen( char *output_buf , int output_bufsize , char *cmd_buf , int cmd_bufsize , char *cmd_format , ... )
+{
 	char		*p_cmd = NULL ;
 	FILE		*popen_fp = NULL ;
 	va_list		valist ;
@@ -139,7 +146,8 @@ int SnprintfAndPopen( char *output_buf , int output_bufsize , char *cmd_buf , in
 	return 0;
 }
 
-int WriteFileLine( char *fileline , char *pathfile_buf , int pathfile_bufsize , char *pathfile_format , ... ) {
+int WriteFileLine( char *fileline , char *pathfile_buf , int pathfile_bufsize , char *pathfile_format , ... )
+{
 	char		*p_pathfile = NULL ;
 	va_list		valist ;
 	int		fd ;
@@ -161,7 +169,8 @@ int WriteFileLine( char *fileline , char *pathfile_buf , int pathfile_bufsize , 
 	return 0;
 }
 
-int ReadFileLine( char *fileline_buf , int fileline_bufsize , char *pathfile_buf , int pathfile_bufsize , char *pathfile_format , ... ) {
+int ReadFileLine( char *fileline_buf , int fileline_bufsize , char *pathfile_buf , int pathfile_bufsize , char *pathfile_format , ... )
+{
 	char		*p_pathfile = NULL ;
 	va_list		valist ;
 	int		fd ;
@@ -187,7 +196,8 @@ int ReadFileLine( char *fileline_buf , int fileline_bufsize , char *pathfile_buf
 	return 0;
 }
 
-int IsDirectoryNewThan( char *path , time_t mtime ) {
+int IsDirectoryNewThan( char *path , time_t mtime )
+{
 	DIR		*dir = NULL ;
 	struct dirent	*dirent = NULL ;
 	char		sub_path[ PATH_MAX + 1 ] ;
@@ -198,7 +208,8 @@ int IsDirectoryNewThan( char *path , time_t mtime ) {
 	dir = opendir( path ) ;
 	if( dir == NULL )
 		return -1;
-	while(1) {
+	while(1)
+	{
 		dirent = readdir( dir ) ;
 		if( dirent == NULL )
 			break;
@@ -212,7 +223,8 @@ int IsDirectoryNewThan( char *path , time_t mtime ) {
 		nret = stat( sub_path , & dir_stat ) ;
 		if( nret == -1 )
 			return -3;
-		if( S_ISDIR(dir_stat.st_mode) ) {
+		if( S_ISDIR(dir_stat.st_mode) )
+		{
 			if( dir_stat.st_mtime > mtime )
 				return 1;
 			
@@ -223,7 +235,8 @@ int IsDirectoryNewThan( char *path , time_t mtime ) {
 	return 0;
 }
 
-static int _GetDirectorySize( char *path , int *p_directory_size ) {
+static int _GetDirectorySize( char *path , int *p_directory_size )
+{
 	DIR		*dir = NULL ;
 	struct dirent	*dirent = NULL ;
 	char		sub_path[ PATH_MAX + 1 ] ;
@@ -235,31 +248,36 @@ static int _GetDirectorySize( char *path , int *p_directory_size ) {
 	if( dir == NULL )
 		return -1;
 	
-	while(1) {
+	while(1)
+	{
 		dirent = readdir( dir ) ;
 		if( dirent == NULL )
 			break;
 		if( STRCMP( dirent->d_name , == , "." ) || STRCMP( dirent->d_name , == , ".." ) )
 			continue;
 		
-		if( Snprintf( sub_path , sizeof(sub_path) , "%s/%s" , path , dirent->d_name ) == NULL ) {
+		if( Snprintf( sub_path , sizeof(sub_path) , "%s/%s" , path , dirent->d_name ) == NULL )
+		{
 			closedir( dir );
 			return -2;
 		}
 		
 		memset( & file_stat , 0x00 , sizeof(struct stat) );
 		nret = stat( sub_path , & file_stat ) ;
-		if( nret == -1 ) {
+		if( nret == -1 )
+		{
 			closedir( dir );
 			return -3;
 		}
 		
-		if( S_ISDIR(file_stat.st_mode)  ) {
+		if( S_ISDIR(file_stat.st_mode)  )
+		{
 			nret = _GetDirectorySize( sub_path , p_directory_size ) ;
 			if( nret )
 				return nret;
 		}
-		else if( S_ISREG(file_stat.st_mode) ) {
+		else if( S_ISREG(file_stat.st_mode) )
+		{
 			(*p_directory_size) += file_stat.st_size ;
 		}
 	}
@@ -269,12 +287,14 @@ static int _GetDirectorySize( char *path , int *p_directory_size ) {
 	return 0;
 }
 
-int GetDirectorySize( char *path , int *p_directory_size ) {
+int GetDirectorySize( char *path , int *p_directory_size )
+{
 	(*p_directory_size) = 0 ;
 	return _GetDirectorySize( path , p_directory_size );
 }
 
-int IsDirectoryEmpty( char *version_path_base ) {
+int IsDirectoryEmpty( char *version_path_base )
+{
 	DIR		*dir = NULL ;
 	struct dirent	*dirent = NULL ;
 	
@@ -282,7 +302,8 @@ int IsDirectoryEmpty( char *version_path_base ) {
 	if( dir == NULL )
 		return -1;
 	
-	while(1) {
+	while(1)
+	{
 		dirent = readdir( dir ) ;
 		if( dirent == NULL )
 			break;

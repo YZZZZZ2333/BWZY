@@ -1,15 +1,18 @@
+
 #include "xdocker_in.h"
 
 static unsigned char	stack_bottom[ 8*1024*1024 ] = { 0 } ;
 
 static int	g_TERM_flag = 0 ;
 
-static void sig_proc( int sig_no ) {
+static void sig_proc( int sig_no )
+{
 	g_TERM_flag = 1 ;
 	return;
 }
 
-static int InvertLowerDirs( struct xdockerEnvironment *env , char *images , char *mount_data , int *p_len , int *p_remain_len ) {
+static int InvertLowerDirs( struct CockerEnvironment *env , char *images , char *mount_data , int *p_len , int *p_remain_len )
+{
 	int		l ;
 	char		*p = NULL ;
 	char		*p2 = NULL ;
@@ -17,24 +20,29 @@ static int InvertLowerDirs( struct xdockerEnvironment *env , char *images , char
 	
 	int		nret = 0 ;
 	
-	if( images ) {
+	if( images )
+	{
 		p = strtok( images , "," ) ;
 	}
-	else {
+	else
+	{
 		p = strtok( NULL , "," ) ;
 	}
-	if( p )	{
+	if( p )
+	{
 		nret = InvertLowerDirs( env , NULL , mount_data , p_len , p_remain_len ) ;
 		if( nret )
 			return nret;
 		
-		if( (*p_len) == 0 )	{
+		if( (*p_len) == 0 )
+		{
 			l = snprintf( mount_data+(*p_len) , (*p_remain_len) , "lowerdir=" ) ;
 			IxTEx( SNPRINTF_OVERFLOW(l,(*p_remain_len)) , exit(9) , "*** ERROR : snprintf overflow\n" )
 			(*p_len) += l ;
 			(*p_remain_len) -= l ;
 		}
-		else {
+		else
+		{
 			l = snprintf( mount_data+(*p_len) , (*p_remain_len) , ":" ) ;
 			IxTEx( SNPRINTF_OVERFLOW(l,(*p_remain_len)) , exit(9) , "*** ERROR : snprintf overflow\n" )
 			(*p_len) += l ;
@@ -42,21 +50,24 @@ static int InvertLowerDirs( struct xdockerEnvironment *env , char *images , char
 		}
 		
 		p2 = strchr( p , ':' ) ;
-		if( p2 == NULL ) {
+		if( p2 == NULL )
+		{
 			Snprintf( env->version_path_base , sizeof(env->version_path_base) , "%s/%s" , env->images_path_base , p ) ;
 			nret = GetMaxVersionPath( env->version_path_base , version , sizeof(version) ) ;
 			INTER1( "*** ERROR : GetMaxVersionPath[%s] failed[%d]\n" , env->version_path_base , nret )
 			
 			l = snprintf( mount_data+(*p_len) , (*p_remain_len) , "%s/%s/%s/rlayer" , env->images_path_base , p , version ) ;
 		}
-		else {
+		else
+		{
 			l = snprintf( mount_data+(*p_len) , (*p_remain_len) , "%s/%.*s/%s/rlayer" , env->images_path_base , (int)(p2-p) , p , p2+1 ) ;
 		}
 		IxTEx( SNPRINTF_OVERFLOW(l,(*p_remain_len)) , exit(9) , "*** ERROR : snprintf overflow\n" )
 		(*p_len) += l ;
 		(*p_remain_len) -= l ;
 		
-		if( images ) {
+		if( images )
+		{
 			l = snprintf( mount_data+(*p_len) , (*p_remain_len) , "," ) ;
 			IxTEx( SNPRINTF_OVERFLOW(l,(*p_remain_len)) , exit(9) , "*** ERROR : snprintf overflow\n" )
 			(*p_len) += l ;
@@ -67,8 +78,9 @@ static int InvertLowerDirs( struct xdockerEnvironment *env , char *images , char
 	return 0;
 }
 
-static int CloneEntry( void *pv ) {
-	struct xdockerEnvironment	*env = (struct xdockerEnvironment *)pv ;
+static int CloneEntry( void *pv )
+{
+	struct CockerEnvironment	*env = (struct CockerEnvironment *)pv ;
 	
 	char				container_net_file[ PATH_MAX + 1 ] ;
 	char				net[ NET_LEN_MAX + 1 ] ;
@@ -87,7 +99,7 @@ static int CloneEntry( void *pv ) {
 	FILE				*container_volume_fp = NULL ;
 	char				mount_target[ PATH_MAX + 1 ] ;
 	char				mount_data[ 4096 ] ;
-	struct xdockerVolume		volume ;
+	struct CockerVolume		volume ;
 	char				mount_volume[ PATH_MAX + 1 ] ;
 	
 	char				cmd[ 4096 ] ;
@@ -128,7 +140,8 @@ static int CloneEntry( void *pv ) {
 	
 	TrimEnter( net );
 	
-	if( STRCMP( net , == , "BRIDGE" ) || STRCMP( net , == , "CUSTOM" ) ) {
+	if( STRCMP( net , == , "BRIDGE" ) || STRCMP( net , == , "CUSTOM" ) )
+	{
 		/* setns */
 		memset( netns_path , 0x00 , sizeof(netns_path) );
 		len = snprintf( netns_path , sizeof(netns_path)-1 , "/var/run/netns/%s" , env->netns_name ) ;
@@ -158,7 +171,8 @@ static int CloneEntry( void *pv ) {
 	EIDTI( "read file %s ok\n" , container_hostname_file )
 	
 	TrimEnter( hostname );
-	if( hostname[0] ) {
+	if( hostname[0] )
+	{
 		sethostname( hostname , strlen(hostname) );
 	}
 	
@@ -172,7 +186,8 @@ static int CloneEntry( void *pv ) {
 	memset( image , 0x00 , sizeof(image) );
 	memset( container_image_file , 0x00 , sizeof(container_image_file) );
 	nret = ReadFileLine( image , sizeof(image)-1 , container_image_file , sizeof(container_image_file) , "%s/image" , env->container_path_base ) ;
-	if( nret ) {
+	if( nret )
+	{
 		char		container_rwlayer_path[ PATH_MAX + 1 ] ;
 		
 		memset( container_image_file , 0x00 , sizeof(container_image_file) );
@@ -183,7 +198,8 @@ static int CloneEntry( void *pv ) {
 		I1TERx( (exit(9)) , "*** ERROR : mount[%s][%s] failed , errno[%d]\n" , container_rwlayer_path , mount_target , errno )
 		EIDTI( "mount [%s][%s][%s][0x%X][%s] ok\n" , container_rwlayer_path , mount_target , "(null)" , MS_MGC_VAL|MS_BIND , "(null)" )
 	}
-	else {
+	else
+	{
 		/*
 		I0TI( "read file %s ok\n" , container_image_file )
 		*/
@@ -191,11 +207,13 @@ static int CloneEntry( void *pv ) {
 		TrimEnter( image );
 		
 		memset( mount_data , 0x00 , sizeof(mount_data) );
-		if( image[0] == '\0' ) {
+		if( image[0] == '\0' )
+		{
 			len = snprintf( mount_data , sizeof(mount_data)-1 , "upperdir=%s/rwlayer,workdir=%s/workdir" , env->container_path_base , env->container_path_base ) ;
 			IxTEx( SNPRINTF_OVERFLOW(len,sizeof(mount_data)-1) , exit(9) , "*** ERROR : snprintf overflow\n" )
 		}
-		else {
+		else
+		{
 			len = 0 ;
 			remain_len = sizeof(mount_data)-1 ;
 			nret = InvertLowerDirs( env , image , mount_data , & len , & remain_len ) ;
@@ -214,11 +232,13 @@ static int CloneEntry( void *pv ) {
 	/* mount volumes */
 	Snprintf( container_volume_file , sizeof(container_volume_file) , "%s/volume" , env->container_path_base ) ;
 	container_volume_fp = fopen( container_volume_file , "r" ) ;
-	if( container_volume_fp ) {
+	if( container_volume_fp )
+	{
 		char		file_buffer[ 4096 ] ;
 		char		*p = NULL ;
 		
-		while(1) {
+		while(1)
+		{
 			memset( file_buffer , 0x00 , sizeof(file_buffer) );
 			if( fgets( file_buffer , sizeof(file_buffer) , container_volume_fp ) == NULL )
 				break;
@@ -226,12 +246,14 @@ static int CloneEntry( void *pv ) {
 			
 			volume.host_path = file_buffer ;
 			p = strchr( volume.host_path , ':' ) ;
-			if( p ) {
+			if( p )
+			{
 				volume.host_path_len = p - volume.host_path ;
 				volume.container_path = p + 1 ;
 				(*p) = '\0' ;
 			}
-			else {
+			else
+			{
 				volume.host_path_len = strlen(volume.host_path) ;
 				volume.container_path = volume.host_path ;
 			}
@@ -253,8 +275,10 @@ static int CloneEntry( void *pv ) {
 	memset( pid_str , 0x00 , sizeof(pid_str) );
 	snprintf( pid_str , sizeof(pid_str)-1 , "%d" , getpid() );
 	
-	if( env->cgroup_enable ) {
-		if( env->cmd_para.__cpus ) {
+	if( env->cgroup_enable )
+	{
+		if( env->cmd_para.__cpus )
+		{
 			nret = SnprintfAndSystem( cmd , sizeof(cmd) , "mkdir %s/cpuset/xdocker_%s" , CGROUP_PATH , env->cmd_para.__container ) ;
 			INTER1( "*** ERROR : system [%s] failed[%d] , errno[%d]\n" , cmd , nret , errno )
 			EIDTI( "system [%s] ok\n" , cmd )
@@ -272,7 +296,8 @@ static int CloneEntry( void *pv ) {
 			EIDTI( "write file %s ok\n" , cgroup_cpuset_tasks_file )
 		}
 		
-		if( env->cmd_para.__cpu_quota ) {
+		if( env->cmd_para.__cpu_quota )
+		{
 			nret = SnprintfAndSystem( cmd , sizeof(cmd) , "mkdir %s/cpu,cpuacct/xdocker_%s" , CGROUP_PATH , env->cmd_para.__container ) ;
 			INTER1( "*** ERROR : system [%s] failed[%d] , errno[%d]\n" , cmd , nret , errno )
 			EIDTI( "system [%s] ok\n" , cmd )
@@ -281,14 +306,16 @@ static int CloneEntry( void *pv ) {
 			INTER1( "*** ERROR : WriteFileLine cpu.cfs_period_us failed[%d] , errno[%d]\n" , nret , errno )
 			EIDTI( "write file %s ok\n" , cgroup_cpu_cfs_period_us_file )
 			
-			if( env->cmd_para.__cpu_quota[strlen(env->cmd_para.__cpu_quota)-1] == '%' ) {
+			if( env->cmd_para.__cpu_quota[strlen(env->cmd_para.__cpu_quota)-1] == '%' )
+			{
 				char	buf[ 20 + 1 ] ;
 				
 				memset( buf , 0x00 , sizeof(buf) );
 				snprintf( buf , sizeof(buf)-1 , "%d" , 1000000/100*atoi(env->cmd_para.__cpu_quota) );
 				nret = WriteFileLine( buf , cgroup_cpu_cfs_quota_us_file , sizeof(cgroup_cpu_cfs_quota_us_file) , "%s/cpu,cpuacct/xdocker_%s/cpu.cfs_quota_us" , CGROUP_PATH , env->cmd_para.__container ) ;
 			}
-			else {
+			else
+			{
 				nret = WriteFileLine( env->cmd_para.__cpu_quota , cgroup_cpuset_mems_file , sizeof(cgroup_cpuset_mems_file) , "%s/cpu,cpuacct/xdocker_%s/cpu.cfs_quota_us" , CGROUP_PATH , env->cmd_para.__container ) ;
 			}
 			INTER1( "*** ERROR : WriteFileLine cpu.cfs_quota_us failed[%d] , errno[%d]\n" , nret , errno )
@@ -299,7 +326,8 @@ static int CloneEntry( void *pv ) {
 			EIDTI( "write file %s ok\n" , cgroup_cpu_tasks_file )
 		}
 		
-		if( env->cmd_para.__mem_limit ) {
+		if( env->cmd_para.__mem_limit )
+		{
 			nret = SnprintfAndSystem( cmd , sizeof(cmd) , "mkdir %s/memory/xdocker_%s" , CGROUP_PATH , env->cmd_para.__container ) ;
 			INTER1( "*** ERROR : system [%s] failed[%d] , errno[%d]\n" , cmd , nret , errno )
 			EIDTI( "system [%s] ok\n" , cmd )
@@ -329,7 +357,8 @@ static int CloneEntry( void *pv ) {
 	SetLogcFile( "/xdocker.log" );
 	SetLogcLevel( LOGCLEVEL_INFO );
 	
-	if( env->cmd_para.__debug ) {
+	if( env->cmd_para.__debug )
+	{
 		I( "chroot [%s] ok\n" , mount_target )
 	}
 	
@@ -346,7 +375,8 @@ static int CloneEntry( void *pv ) {
 	I( "chdir [%s] ...\n" , "/root" )
 	*/
 	nret = chdir( "/root" ) ;
-	if( env->cmd_para.__debug ) {
+	if( env->cmd_para.__debug )
+	{
 		I( "chdir [%s] ok\n" , "/root" )
 	}
 	
@@ -360,7 +390,8 @@ static int CloneEntry( void *pv ) {
 	for( i = 1 ; i <= 31 ; i++ )
 		signal( i , SIG_DFL );
 	
-	if( env->cmd_para.__exec == NULL ) {
+	if( env->cmd_para.__exec == NULL )
+	{
 		argc = 0 ;
 		argv[argc++] = "/bin/xdockerinit" ;
 		argv[argc++] = "xdockerinit" ;
@@ -371,14 +402,17 @@ static int CloneEntry( void *pv ) {
 			I( "argv[%d]=[%s]\n" , i , argv[i] )
 		nret = execv( argv[0] , argv+1 ) ;
 	}
-	else {
+	else
+	{
 		argc = 0 ;
 		p = strtok( env->cmd_para.__exec , " \t" ) ;
-		while( p ) {
+		while( p )
+		{
 			if( argc >= sizeof(argv)/sizeof(argv[0])-1 )
 			ER1( "*** ERROR : exec too long\n" )
 			
-			if( argc == 0 ) {
+			if( argc == 0 )
+			{
 				argv[argc++] = p ;
 				p2 = strrchr( p , '/' ) ;
 				if( p2 )
@@ -386,7 +420,8 @@ static int CloneEntry( void *pv ) {
 				else
 					argv[argc++] = p ;
 			}
-			else {
+			else
+			{
 				argv[argc++] = p ;
 			}
 			
@@ -406,7 +441,8 @@ static int CloneEntry( void *pv ) {
 	exit(9);
 }
 
-int CleanContainerResource( struct xdockerEnvironment *env ) {
+int CleanContainerResource( struct CockerEnvironment *env )
+{
 	char			net[ NET_LEN_MAX + 1 ] ;
 	char			vip[ IP_LEN_MAX + 1 ] ;
 	
@@ -426,7 +462,7 @@ int CleanContainerResource( struct xdockerEnvironment *env ) {
 	
 	char			container_volume_file[ PATH_MAX + 1 ] ;
 	FILE			*container_volume_fp = NULL ;
-	struct xdockerVolume	volume ;
+	struct CockerVolume	volume ;
 	char			mount_volume[ PATH_MAX + 1 ] ;
 	char			mount_target[ PATH_MAX + 1 ] ;
 	
@@ -437,7 +473,8 @@ int CleanContainerResource( struct xdockerEnvironment *env ) {
 	memset( container_pid_file , 0x00 , sizeof(container_pid_file) );
 	nret = ReadFileLine( pid_str , sizeof(pid_str)-1 , container_pid_file , sizeof(container_pid_file) , "%s/pid" , env->container_path_base ) ;
 	INTE( "*** ERROR : ReadFileLine pid failed\n" )
-	if( nret == 0 ) {
+	if( nret == 0 )
+	{
 		/* cleanup pid file */
 		nret = unlink( container_pid_file ) ;
 		INTE( "*** ERROR : unlink %s failed\n" , container_pid_file )
@@ -454,7 +491,8 @@ int CleanContainerResource( struct xdockerEnvironment *env ) {
 	TrimEnter( net );
 	
 	/* destroy network */
-	if( STRCMP( net , == , "BRIDGE" ) ) {
+	if( STRCMP( net , == , "BRIDGE" ) )
+	{
 		memset( vip , 0x00 , sizeof(vip) );
 		memset( container_vip_file , 0x00 , sizeof(container_vip_file) );
 		nret = ReadFileLine( vip , sizeof(vip) , container_vip_file , sizeof(container_vip_file) , "%s/vip" , env->container_path_base ) ;
@@ -476,7 +514,8 @@ int CleanContainerResource( struct xdockerEnvironment *env ) {
 		EIDTI( "system [%s] ok\n" , cmd )
 		
 		p = strtok( port_mapping , "," ) ;
-		while( p ) {
+		while( p )
+		{
 			memset( src_port_str , 0x00 , sizeof(src_port_str) );
 			sscanf( p , "%[^:]:%d" , src_port_str , & (env->dst_port) );
 			env->src_port = atoi(src_port_str) ;
@@ -515,20 +554,24 @@ int CleanContainerResource( struct xdockerEnvironment *env ) {
 	}
 	
 	/* disable system limits */
-	if( env->cgroup_enable ) {
-		if( env->cmd_para.__cpus ) {
+	if( env->cgroup_enable )
+	{
+		if( env->cmd_para.__cpus )
+		{
 			nret = SnprintfAndSystem( cmd , sizeof(cmd) , "rmdir %s/cpuset/xdocker_%s" , CGROUP_PATH , env->cmd_para.__container ) ;
 			INTE( "*** ERROR : system [%s] failed[%d] , errno[%d]\n" , cmd , nret , errno )
 			EIDTI( "system [%s] ok\n" , cmd )
 		}
 		
-		if( env->cmd_para.__cpu_quota ) {
+		if( env->cmd_para.__cpu_quota )
+		{
 			nret = SnprintfAndSystem( cmd , sizeof(cmd) , "rmdir %s/cpu,cpuacct/xdocker_%s" , CGROUP_PATH , env->cmd_para.__container ) ;
 			INTE( "*** ERROR : system [%s] failed[%d] , errno[%d]\n" , cmd , nret , errno )
 			EIDTI( "system [%s] ok\n" , cmd )
 		}
 		
-		if( env->cmd_para.__mem_limit ) {
+		if( env->cmd_para.__mem_limit )
+		{
 			nret = SnprintfAndSystem( cmd , sizeof(cmd) , "rmdir %s/memory/xdocker_%s" , CGROUP_PATH , env->cmd_para.__container ) ;
 			INTE( "*** ERROR : system [%s] failed[%d] , errno[%d]\n" , cmd , nret , errno )
 			EIDTI( "system [%s] ok\n" , cmd )
@@ -538,11 +581,13 @@ int CleanContainerResource( struct xdockerEnvironment *env ) {
 	/* umount volumes */
 	Snprintf( container_volume_file , sizeof(container_volume_file) , "%s/volume" , env->container_path_base ) ;
 	container_volume_fp = fopen( container_volume_file , "r" ) ;
-	if( container_volume_fp ) {
+	if( container_volume_fp )
+	{
 		char		file_buffer[ 4096 ] ;
 		char		*p = NULL ;
 		
-		while(1) {
+		while(1)
+		{
 			memset( file_buffer , 0x00 , sizeof(file_buffer) );
 			if( fgets( file_buffer , sizeof(file_buffer) , container_volume_fp ) == NULL )
 				break;
@@ -550,12 +595,14 @@ int CleanContainerResource( struct xdockerEnvironment *env ) {
 			
 			volume.host_path = file_buffer ;
 			p = strchr( volume.host_path , ':' ) ;
-			if( p ) {
+			if( p )
+			{
 				volume.host_path_len = p - volume.host_path ;
 				volume.container_path = p + 1 ;
 				(*p) = '\0' ;
 			}
-			else {
+			else
+			{
 				volume.host_path_len = strlen(volume.host_path) ;
 				volume.container_path = volume.host_path ;
 			}
@@ -576,8 +623,10 @@ int CleanContainerResource( struct xdockerEnvironment *env ) {
 	memset( mount_target , 0x00 , sizeof(mount_target) );
 	len = snprintf( mount_target , sizeof(mount_target)-1 , "%s/merged/proc" , env->container_path_base ) ;
 	IxTER1( SNPRINTF_OVERFLOW(len,sizeof(mount_target)-1) , "*** ERROR : snprintf overflow\n" )
-	else {
-		while(1) {
+	else
+	{
+		while(1)
+		{
 			nret = umount( mount_target ) ;
 			I1TE( "*** ERROR : umount %s failed , errno[%d]\n" , mount_target , errno )
 			EIDTI( "umount %s ok\n" , mount_target )
@@ -592,8 +641,10 @@ int CleanContainerResource( struct xdockerEnvironment *env ) {
 	memset( mount_target , 0x00 , sizeof(mount_target) );
 	len = snprintf( mount_target , sizeof(mount_target)-1 , "%s/merged/dev/pts" , env->container_path_base ) ;
 	IxTER1( SNPRINTF_OVERFLOW(len,sizeof(mount_target)-1) , "*** ERROR : snprintf overflow\n" )
-	else {
-		while(1) {
+	else
+	{
+		while(1)
+		{
 			nret = umount( mount_target ) ;
 			I1TE( "*** ERROR : umount %s failed , errno[%d]\n" , mount_target , errno )
 			EIDTI( "umount %s ok\n" , mount_target )
@@ -608,8 +659,10 @@ int CleanContainerResource( struct xdockerEnvironment *env ) {
 	memset( mount_target , 0x00 , sizeof(mount_target) );
 	len = snprintf( mount_target , sizeof(mount_target)-1 , "%s/merged" , env->container_path_base ) ;
 	IxTER1( SNPRINTF_OVERFLOW(len,sizeof(mount_target)-1) , "*** ERROR : snprintf overflow\n" )
-	else {
-		while(1) {
+	else
+	{
+		while(1)
+		{
 			nret = umount( mount_target ) ;
 			I1TE( "*** ERROR : umount %s failed , errno[%d]\n" , mount_target , errno )
 			EIDTI( "umount %s ok\n" , mount_target )
@@ -624,7 +677,8 @@ int CleanContainerResource( struct xdockerEnvironment *env ) {
 	return 0;
 }
 
-int DoAction_boot( struct xdockerEnvironment *env ) {
+int DoAction_boot( struct CockerEnvironment *env )
+{
 	char		net[ NET_LEN_MAX + 1 ] ;
 	char		vip[ IP_LEN_MAX + 1 ] ;
 	char		container_pid_file[ PATH_MAX + 1 ] ;
@@ -659,10 +713,12 @@ int DoAction_boot( struct xdockerEnvironment *env ) {
 	/* read pid file */
 	memset( pid_str , 0x00 , sizeof(pid_str) );
 	nret = ReadFileLine( pid_str , sizeof(pid_str)-1 , NULL , -1 , "%s/pid" , env->container_path_base ) ;
-	if( nret == 0 ) {
+	if( nret == 0 )
+	{
 		TrimEnter( pid_str );
 		pid = atoi(pid_str) ;
-		if( pid > 0 ) {
+		if( pid > 0 )
+		{
 			nret = kill( pid , 0 ) ;
 			I0TER1( "*** ERROR : container is already running\n" )
 		}
@@ -678,7 +734,8 @@ int DoAction_boot( struct xdockerEnvironment *env ) {
 	TrimEnter( net );
 	
 	/* create network */
-	if( STRCMP( net , == , "BRIDGE" ) ) {
+	if( STRCMP( net , == , "BRIDGE" ) )
+	{
 		memset( vip , 0x00 , sizeof(vip) );
 		memset( container_vip_file , 0x00 , sizeof(container_vip_file) );
 		nret = ReadFileLine( vip , sizeof(vip) , container_vip_file , sizeof(container_vip_file) , "%s/vip" , env->container_path_base ) ;
@@ -768,16 +825,20 @@ int DoAction_boot( struct xdockerEnvironment *env ) {
 		signal( SIGTERM , sig_proc );
 		
 		container_root_pid = fork() ;
-		if( container_root_pid == -1 ) {
+		if( container_root_pid == -1 )
+		{
 			E( "*** ERROR : fork failed , errno[%d]\n" , errno )
 			goto _END ;
 		}
-		else if( container_root_pid > 0 ) {
-			if( env->cmd_para.__attach ) {
+		else if( container_root_pid > 0 )
+		{
+			if( env->cmd_para.__attach )
+			{
 				sleep(1);
 				exit( -DoAction_attach(env) ) ;
 			}
-			else {
+			else
+			{
 				printf( "OK\n" );
 			}
 			
@@ -793,7 +854,8 @@ int DoAction_boot( struct xdockerEnvironment *env ) {
 		setsid();
 		
 		null_fd = open( "/dev/null" , O_RDWR ) ;
-		if( null_fd == -1 ) {
+		if( null_fd == -1 )
+		{
 			E( "*** ERROR : open /dev/null failed , errno[%d]\n" , errno )
 			goto _END ;
 		}
@@ -821,10 +883,12 @@ int DoAction_boot( struct xdockerEnvironment *env ) {
 	signal( SIGCLD , SIG_DFL );
 	signal( SIGCHLD , SIG_DFL );
 	
-	if( STRCMP( net , == , "HOST" ) ) {
+	if( STRCMP( net , == , "HOST" ) )
+	{
 		pid = clone( CloneEntry , stack_bottom+sizeof(stack_bottom) , CLONE_NEWNS|CLONE_NEWPID|CLONE_NEWIPC|CLONE_NEWUTS , (void*)env ) ;
 	}
-	else {
+	else
+	{
 		pid = clone( CloneEntry , stack_bottom+sizeof(stack_bottom) , CLONE_NEWNS|CLONE_NEWPID|CLONE_NEWIPC|CLONE_NEWUTS|CLONE_NEWNET , (void*)env ) ;
 	}
 	IxTEx( (pid==-1) , exit(9) , "*** ERROR : clone failed[%d] , errno[%d]\n" , pid , errno )
@@ -833,28 +897,35 @@ int DoAction_boot( struct xdockerEnvironment *env ) {
 	close( env->alive_pipe[0] );
 	
 	/*
-	if( env->cmd_para.__exec ) {
+	if( env->cmd_para.__exec )
+	{
 		return 0;
 	}
 	*/
 	
 	/* wait for container end */
-	while(1) {
+	while(1)
+	{
 		IDTI( "waitpid __WCLONE ...\n" )
 		pid = waitpid( -1 , NULL , __WCLONE ) ;
-		if( pid == -1 ) {
-			if( g_TERM_flag == 1 ) {
+		if( pid == -1 )
+		{
+			if( g_TERM_flag == 1 )
+			{
 				I( "waitpid interrupted by SIGTERM\n" )
 				
 				kill( container_root_pid , SIGTERM );
-				for( i = 0 ; i < 5 ; i++ ) {
+				for( i = 0 ; i < 5 ; i++ )
+				{
 					nret = kill( container_root_pid , 0 ) ;
 					if( nret == -1 )
 						break;
 				}
-				if( i >= 5 ) {
+				if( i >= 5 )
+				{
 					kill( container_root_pid , SIGKILL );
-					for( i = 0 ; i < 5 ; i++ ) {
+					for( i = 0 ; i < 5 ; i++ )
+					{
 						nret = kill( container_root_pid , 0 ) ;
 						if( nret == -1 )
 							break;
@@ -864,7 +935,8 @@ int DoAction_boot( struct xdockerEnvironment *env ) {
 				break;
 			}
 			
-			if( errno == ECHILD ) {
+			if( errno == ECHILD )
+			{
 				I( "waitpid interrupted by errno ECHILD\n" )
 				break;
 			}
@@ -872,7 +944,8 @@ int DoAction_boot( struct xdockerEnvironment *env ) {
 			E( "*** ERROR : waitpid __WCLONE failed , errno[%d]\n" , errno )
 			exit(1);
 		}
-		else if( pid > 0 ) {
+		else if( pid > 0 )
+		{
 			I( "waitpid __WCLONE return[%d]\n" , pid )
 			break;
 		}

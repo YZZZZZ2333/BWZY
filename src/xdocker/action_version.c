@@ -1,6 +1,8 @@
+
 #include "xdocker_in.h"
 
-int DoAction_version( struct xdockerEnvironment *env ) {
+int DoAction_version( struct CockerEnvironment *env )
+{
 	char		image[ IMAGES_ID_LEN_MAX + 1 ] ;
 	char		old_version[ PATH_MAX + 1 ] ;
 	char		new_version[ PATH_MAX + 1 ] ;
@@ -20,10 +22,12 @@ int DoAction_version( struct xdockerEnvironment *env ) {
 	I1TER1( "*** ERROR : image '%s' not found\n" , env->cmd_para.__image )
 	
 	memset( new_version , 0x00 , sizeof(new_version) );
-	if( env->cmd_para.__version ) {
+	if( env->cmd_para.__version )
+	{
 		strncpy( new_version , env->cmd_para.__version , sizeof(new_version)-1 );
 	}
-	if( new_version[0] == '\0' ) {
+	if( new_version[0] == '\0' )
+	{
 		strcpy( new_version , "_" );
 	}
 	

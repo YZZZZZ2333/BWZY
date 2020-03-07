@@ -1,6 +1,8 @@
+
 #include "xdocker_in.h"
 
-int DoAction_spush( struct xdockerEnvironment *env ) {
+int DoAction_spush( struct CockerEnvironment *env )
+{
 	char		image[ IMAGES_ID_LEN_MAX + 1 ] ;
 	char		version[ PATH_MAX + 1 ] ;
 	char		image_file[ PATH_MAX + 1 ] ;
@@ -30,7 +32,8 @@ int DoAction_spush( struct xdockerEnvironment *env ) {
 	
 	/* pack and upload image */
 	nret = SnprintfAndSystem( cmd , sizeof(cmd) , "ssh %s \"ls ./%s\" >/dev/null 2>/dev/null" , srepo , image_file ) ;
-	if( nret == 0 ) {
+	if( nret == 0 )
+	{
 		E( "*** ERROR : image '%s' exist in srepo\n" , image_file );
 		if( ! env->cmd_para.__forcely )
 			return nret;

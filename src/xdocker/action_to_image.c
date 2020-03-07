@@ -1,6 +1,8 @@
+
 #include "xdocker_in.h"
 
-int DoAction_to_image( struct xdockerEnvironment *env ) {
+int DoAction_to_image( struct CockerEnvironment *env )
+{
 	char		version[ PATH_MAX + 1 ] ;
 	char		pid_str[ PID_LEN_MAX + 1 ] ;
 	pid_t		pid ;
@@ -21,10 +23,12 @@ int DoAction_to_image( struct xdockerEnvironment *env ) {
 	nret = ReadFileLine( version , sizeof(version)-1 , NULL , -1 , "%s/%s/version" , env->containers_path_base , env->cmd_para.__from_container ) ;
 	I1TER1( "*** ERROR : container '%s' is not converted from image\n" , env->cmd_para.__from_container )
 	
-	if( env->cmd_para.__version ) {
+	if( env->cmd_para.__version )
+	{
 		strncpy( version , env->cmd_para.__version , sizeof(version)-1 );
 	}
-	if( version[0] == '\0' ) {
+	if( version[0] == '\0' )
+	{
 		strcpy( version , "_" );
 	}
 	
@@ -38,9 +42,11 @@ int DoAction_to_image( struct xdockerEnvironment *env ) {
 	memset( pid_str , 0x00 , sizeof(pid_str) );
 	memset( container_pid_file , 0x00 , sizeof(container_pid_file) );
 	nret = ReadFileLine( pid_str , sizeof(pid_str)-1 , container_pid_file , sizeof(container_pid_file) , "%s/%s/pid" , env->containers_path_base , env->cmd_para.__from_container ) ;
-	if( nret == 0 ) {
+	if( nret == 0 )
+	{
 		pid = atoi(pid_str) ;
-		if( pid > 0 ) {
+		if( pid > 0 )
+		{
 			nret = kill( pid , 0 ) ;
 			I0TER1( "*** ERROR : container is already running\n" )
 		}
@@ -56,12 +62,14 @@ int DoAction_to_image( struct xdockerEnvironment *env ) {
 	TrimEnter( net );
 	
 	/* destroy network-namespace */
-	if( STRCMP( net , == , "BRIDGE" ) || env->cmd_para.__forcely ) {
+	if( STRCMP( net , == , "BRIDGE" ) || env->cmd_para.__forcely )
+	{
 		nret = SnprintfAndSystem( cmd , sizeof(cmd) , "ip netns del %s" , env->netns_name ) ;
 		INTEFR1( "*** ERROR : system [%s] failed[%d] , errno[%d]\n" , cmd , nret , errno )
 		EIDTI( "system [%s] ok\n" , cmd )
 	}
-	else if( STRCMP( net , == , "CUSTOM" ) ) {
+	else if( STRCMP( net , == , "CUSTOM" ) )
+	{
 		nret = SnprintfAndSystem( cmd , sizeof(cmd) , "ip netns del %s" , env->netns_name ) ;
 		INTEFR1( "*** ERROR : system [%s] failed[%d] , errno[%d]\n" , cmd , nret , errno )
 		EIDTI( "system [%s] ok\n" , cmd )

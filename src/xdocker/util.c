@@ -1,6 +1,8 @@
+
 #include "xdocker_in.h"
 
-void GetEthernetNames( struct xdockerEnvironment *env , char *container_id ) {
+void GetEthernetNames( struct CockerEnvironment *env , char *container_id )
+{
 	char		ethername_postfix[ 10 + 1 ] ;
 	
 	memset( ethername_postfix , 0x00 , sizeof(ethername_postfix) );
@@ -24,7 +26,8 @@ void GetEthernetNames( struct xdockerEnvironment *env , char *container_id ) {
 	return;
 }
 
-int SplitImageVersion( char *image_id , char *version , int version_bufsize ) {
+int SplitImageVersion( char *image_id , char *version , int version_bufsize )
+{
 	char	*p = NULL ;
 	
 	memset( version , 0x00 , version_bufsize );
@@ -41,7 +44,8 @@ int SplitImageVersion( char *image_id , char *version , int version_bufsize ) {
 	return 0;
 }
 
-int GetMaxVersionPath( char *version_path_base , char *max_version , int max_version_bufsize ) {
+int GetMaxVersionPath( char *version_path_base , char *max_version , int max_version_bufsize )
+{
 	DIR		*dir = NULL ;
 	struct dirent	*dirent = NULL ;
 	char		sub_path[ PATH_MAX + 1 ] ;
@@ -60,21 +64,24 @@ int GetMaxVersionPath( char *version_path_base , char *max_version , int max_ver
 	max_v2 = -1 ;
 	max_v3 = -1 ;
 	max_v4 = -1 ;
-	while(1) {
+	while(1)
+	{
 		dirent = readdir( dir ) ;
 		if( dirent == NULL )
 			break;
 		if( STRCMP( dirent->d_name , == , "." ) || STRCMP( dirent->d_name , == , ".." ) )
 			continue;
 		
-		if( Snprintf( sub_path , sizeof(sub_path) , "%s/%s" , version_path_base , dirent->d_name ) == NULL ) {
+		if( Snprintf( sub_path , sizeof(sub_path) , "%s/%s" , version_path_base , dirent->d_name ) == NULL )
+		{
 			closedir( dir );
 			return -2;
 		}
 		
 		memset( & dir_stat , 0x00 , sizeof(struct stat) );
 		nret = stat( sub_path , & dir_stat ) ;
-		if( nret == -1 ) {
+		if( nret == -1 )
+		{
 			closedir( dir );
 			return -3;
 		}
@@ -100,10 +107,12 @@ int GetMaxVersionPath( char *version_path_base , char *max_version , int max_ver
 	
 	closedir( dir );
 	
-	if( version[0] == '0' ) {
+	if( version[0] == '0' )
+	{
 		return 1;
 	}
-	else {
+	else
+	{
 		strncpy( max_version , version , max_version_bufsize-1 );
 		return 0;
 	}

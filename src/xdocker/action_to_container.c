@@ -1,6 +1,8 @@
+
 #include "xdocker_in.h"
 
-int DoAction_to_container( struct xdockerEnvironment *env ) {
+int DoAction_to_container( struct CockerEnvironment *env )
+{
 	char			image[ IMAGES_ID_LEN_MAX + 1 ] ;
 	char			version[ PATH_MAX + 1 ] ;
 	char			*p = NULL ;
@@ -16,14 +18,16 @@ int DoAction_to_container( struct xdockerEnvironment *env ) {
 	
 	p = image ;
 	p2 = strchr( p , ':' ) ;
-	if( p2 == NULL ) {
+	if( p2 == NULL )
+	{
 		Snprintf( version_path_base , sizeof(version_path_base) , "%s/%s" , env->images_path_base , p ) ;
 		nret = GetMaxVersionPath( version_path_base , version , sizeof(version) ) ;
 		INTER1( "*** ERROR : GetMaxVersionPath[%s] failed[%d]\n" , version_path_base , nret )
 		
 		nret = SnprintfAndCheckDir( NULL , -1 , "%s/%s/%s/rlayer" , env->images_path_base , p , version ) ;
 	}
-	else {
+	else
+	{
 		strcpy( version , "_" );
 		(*p2) = '0' ;
 		nret = SnprintfAndCheckDir( NULL , -1 , "%s/%.*s/%s/rlayer" , env->images_path_base , (int)(p2-p) , p , p2+1 ) ;
@@ -56,7 +60,8 @@ int DoAction_to_container( struct xdockerEnvironment *env ) {
 	EIDTI( "system [%s] ok\n" , cmd )
 	
 	nret = IsDirectoryEmpty( version_path_base ) ;
-	if( nret == 0 ) {
+	if( nret == 0 )
+	{
 		nret = SnprintfAndSystem( cmd , sizeof(cmd) , "rmdir %s" , version_path_base ) ;
 		INTER1( "*** ERROR : SnprintfAndSystem [rmdir %s] failed[%d] , errno[%d]\n" , version_path_base , nret , errno )
 		EIDTI( "system [%s] ok\n" , cmd )

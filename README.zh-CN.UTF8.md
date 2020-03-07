@@ -114,9 +114,9 @@
 
 层叠文件系统是多镜像容器的存储基础，xdocker采用overlayfs作为其层叠文件系统引擎，可以叠加几乎无限的镜像层。
 
-`xdocker`的镜像和容器等都存放在环境变量`xdocker_HOME`指向的主目录中，所以规划其容量是使用前必须要考虑的问题。如果没有设置环境变量`xdocker_HOME`，则默认指向`/var/xdocker`。
+`xdocker`的镜像和容器等都存放在环境变量`XDOCKER_HOME`指向的主目录中，所以规划其容量是使用前必须要考虑的问题。如果没有设置环境变量`XDOCKER_HOME`，则默认指向`/var/xdocker`。
 
-`xdocker_HOME`主目录中有镜像主目录`images`、容器主目录`containers`、`ssh`镜像仓库`srepo`，以及日志文件`xdocker.log`。
+`XDOCKER_HOME`主目录中有镜像主目录`images`、容器主目录`containers`、`ssh`镜像仓库`srepo`，以及日志文件`xdocker.log`。
 
 ### 1.3.3. 网络
 
@@ -965,9 +965,9 @@ calvin=rhel-7.4-x86_64         1.0.0      2018-11-25T09:03:48 228 MB
 
 ```
 # . xdocker_container_root.sh test
-$ echo $xdocker_CONTAINER_ROOT
+$ echo $XDOCKER_CONTAINER_ROOT
 /var/xdocker/containers/test/merged
-# ls -l $xdocker_CONTAINER_ROOT
+# ls -l $XDOCKER_CONTAINER_ROOT
 total 20
 drwxr-xr-x.   2 root root 4096 Nov 22 08:26 bin
 -rwxr-xr-x.   1 root root 2634 Nov 22 08:43 xdocker.log

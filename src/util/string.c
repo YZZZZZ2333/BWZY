@@ -1,6 +1,8 @@
+
 #include "xdocker_util.h"
 
-char *SnprintfV( char *path_buf , int path_bufsize , char *path_format , va_list valist ) {
+char *SnprintfV( char *path_buf , int path_bufsize , char *path_format , va_list valist )
+{
 	static char		path[ 4096 ] = "" ;
 	
 	static char		*p_path = NULL ;
@@ -27,7 +29,8 @@ char *SnprintfV( char *path_buf , int path_bufsize , char *path_format , va_list
 	return p_path;
 }
 
-char *Snprintf( char *path_buf , int path_bufsize , char *path_format , ... ) {
+char *Snprintf( char *path_buf , int path_bufsize , char *path_format , ... )
+{
 	char		*p_path = NULL ;
 	va_list		valist ;
 	
@@ -40,7 +43,8 @@ char *Snprintf( char *path_buf , int path_bufsize , char *path_format , ... ) {
 	return p_path;
 }
 
-char *TrimEnter( char *str ) {
+char *TrimEnter( char *str )
+{
 	char	*ptr = NULL ;
 	
 	if( str == NULL )
@@ -57,7 +61,8 @@ char *TrimEnter( char *str ) {
 	return str;
 }
 
-char *GenerateContainerId( char *images_id , char *container_id ) {
+char *GenerateContainerId( char *images_id , char *container_id )
+{
 	MD5_CTX			md5_ctx ;
 	struct timeval		now ;
 	char			time_buf[ 10+1+6 + 1 ] ;
@@ -79,7 +84,8 @@ char *GenerateContainerId( char *images_id , char *container_id ) {
 	memset( md5 , 0x00 , sizeof(md5) );
 	MD5_Final( md5 , & md5_ctx );
 	
-	for( p_md5 = md5 , p_md5_exp = (unsigned char *)container_id , i = 0 ; i < CONTAINER_ID_LEN_MAX/2 ; p_md5++ , p_md5_exp+=2 , i++ ) {
+	for( p_md5 = md5 , p_md5_exp = (unsigned char *)container_id , i = 0 ; i < CONTAINER_ID_LEN_MAX/2 ; p_md5++ , p_md5_exp+=2 , i++ )
+	{
 		p_md5_exp[0] = hex_charset[(p_md5[0]&0xF0)>>4] ;
 		p_md5_exp[1] = hex_charset[p_md5[0]&0x0F] ;
 	}
@@ -87,7 +93,8 @@ char *GenerateContainerId( char *images_id , char *container_id ) {
 	return container_id;
 }
 
-char *GenerateEthernamePostfix( char *container_id , char *ethername_postfix ) {
+char *GenerateEthernamePostfix( char *container_id , char *ethername_postfix )
+{
 	MD5_CTX			md5_ctx ;
 	unsigned char		md5[ MD5_DIGEST_LENGTH + 1 ] ;
 	int			i ;
@@ -102,7 +109,8 @@ char *GenerateEthernamePostfix( char *container_id , char *ethername_postfix ) {
 	memset( md5 , 0x00 , sizeof(md5) );
 	MD5_Final( md5 , & md5_ctx );
 	
-	for( p_md5 = md5 , p_md5_exp = (unsigned char *)ethername_postfix , i = 0 ; i < 5 ; p_md5++ , p_md5_exp+=2 , i++ ) {
+	for( p_md5 = md5 , p_md5_exp = (unsigned char *)ethername_postfix , i = 0 ; i < 5 ; p_md5++ , p_md5_exp+=2 , i++ )
+	{
 		p_md5_exp[0] = hex_charset[(p_md5[0]&0xF0)>>4] ;
 		p_md5_exp[1] = hex_charset[p_md5[0]&0x0F] ;
 	}

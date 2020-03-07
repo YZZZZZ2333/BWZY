@@ -1,6 +1,8 @@
+
 #include "xdocker_in.h"
 
-int DoAction_spull( struct xdockerEnvironment *env ) {
+int DoAction_spull( struct CockerEnvironment *env )
+{
 	char		srepo[ SREPO_LEN_MAX + 1 ] ;
 	char		srepo_file[ PATH_MAX + 1 ] ;
 	char		image_file[ PATH_MAX + 1 ] ;
@@ -31,7 +33,8 @@ int DoAction_spull( struct xdockerEnvironment *env ) {
 	
 	/* download and import image file */
 	nret = SnprintfAndSystem( cmd , sizeof(cmd) , "ssh %s \"ls ./%s.xdockerimage\" >/dev/null 2>/dev/null" , srepo , env->cmd_para.__image ) ;
-	if( nret ) {
+	if( nret )
+	{
 		E( "*** ERROR : image '%s' not found in srepo\n" , env->cmd_para.__image_file );
 		if( ! env->cmd_para.__forcely )
 			return nret;

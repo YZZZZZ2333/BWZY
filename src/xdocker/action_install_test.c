@@ -1,6 +1,8 @@
+
 #include "xdocker_in.h"
 
-int DoAction_install_test( struct xdockerEnvironment *env ) {
+int DoAction_install_test( struct CockerEnvironment *env )
+{
 	char		version_path_base[ PATH_MAX + 1 ] ;
 	char		image_rlayer_path[ PATH_MAX + 1 ] ;
 	char		cmd[ 4096 ] ;
@@ -9,10 +11,12 @@ int DoAction_install_test( struct xdockerEnvironment *env ) {
 	
 	/* preprocess input parameters */
 	nret = SnprintfAndMakeDir( version_path_base , sizeof(version_path_base)-1 , "%s/test" , env->images_path_base ) ;
-	if( env->cmd_para.__version ) {
+	if( env->cmd_para.__version )
+	{
 		nret = SnprintfAndMakeDir( env->image_path_base , sizeof(env->image_path_base)-1 , "%s/%s" , version_path_base , env->cmd_para.__version ) ;
 	}
-	else {
+	else
+	{
 		nret = SnprintfAndMakeDir( env->image_path_base , sizeof(env->image_path_base)-1 , "%s/_" , version_path_base ) ;
 	}
 	INTER1( "*** ERROR : SnprintfAndMakeDir image_path_base failed[%d] , errno[%d]\n" , nret , errno )

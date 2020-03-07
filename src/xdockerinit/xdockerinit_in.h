@@ -1,3 +1,4 @@
+
 #ifndef _H_XDOCKERINIT_IN_
 #define _H_XDOCKERINIT_IN_
 
@@ -7,12 +8,14 @@
 extern "C" {
 #endif
 
-struct CommandParameter {
+struct CommandParameter
+{
 	char			*__container_id ;
 	char			*__single ;
 } ;
 
-struct xdockerInitEnvironment {
+struct CockerInitEnvironment
+{
 	struct CommandParameter	cmd_para ;
 	
 	int			alive_pipe_0 ;
@@ -26,9 +29,9 @@ struct xdockerInitEnvironment {
 	pid_t			bash_pid ;
 } ;
 
-int server( struct xdockerInitEnvironment *env );
-int create_pty( struct xdockerInitEnvironment *env );
-int pts_and_tcp_bridge( struct xdockerInitEnvironment *env );
+int server( struct CockerInitEnvironment *env );
+int create_pty( struct CockerInitEnvironment *env );
+int pts_and_tcp_bridge( struct CockerInitEnvironment *env );
 
 #ifdef __cplusplus
 }

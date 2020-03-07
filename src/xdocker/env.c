@@ -1,7 +1,9 @@
+
 #include "xdocker_in.h"
 
-int CreatexdockerEnvironment( struct xdockerEnvironment **pp_env ) {
-	struct xdockerEnvironment	*env = NULL ;
+int CreateCockerEnvironment( struct CockerEnvironment **pp_env )
+{
+	struct CockerEnvironment	*env = NULL ;
 	
 	char				netbr_name[ ETHERNET_NAME_LEN_MAX + 1 ] ;
 	char				cmd[ 4096 ] ;
@@ -9,24 +11,29 @@ int CreatexdockerEnvironment( struct xdockerEnvironment **pp_env ) {
 	
 	int				nret = 0 ;
 	
-	env = (struct xdockerEnvironment *)malloc( sizeof(struct xdockerEnvironment) ) ;
-	if( env == NULL ) {
+	env = (struct CockerEnvironment *)malloc( sizeof(struct CockerEnvironment) ) ;
+	if( env == NULL )
+	{
 		printf( "*** ERROR : malloc failed , errno[%d]\n" , errno );
 		return 1;
 	}
-	memset( env , 0x00 , sizeof(struct xdockerEnvironment) );
+	memset( env , 0x00 , sizeof(struct CockerEnvironment) );
 	
-	if( getenv("xdocker_HOME" ) ) {
-		nret = SnprintfAndMakeDir( env->xdocker_home , sizeof(env->xdocker_home)-1 , "%s" , getenv("xdocker_HOME" ) ) ;
-		if( nret ) {
+	if( getenv("XDOCKER_HOME" ) )
+	{
+		nret = SnprintfAndMakeDir( env->xdocker_home , sizeof(env->xdocker_home)-1 , "%s" , getenv("XDOCKER_HOME" ) ) ;
+		if( nret )
+		{
 			printf( "*** ERROR : SnprintfAndMakeDir[%s] failed[%d]\n" , env->xdocker_home , nret );
 			free( env );
 			return -1;
 		}
 	}
-	else {
+	else
+	{
 		nret = SnprintfAndMakeDir( env->xdocker_home , sizeof(env->xdocker_home)-1 , "/var/xdocker" ) ;
-		if( nret ) {
+		if( nret )
+		{
 			printf( "*** ERROR : SnprintfAndMakeDir[%s] failed[%d]\n" , env->xdocker_home , nret );
 			free( env );
 			return -1;
@@ -34,52 +41,62 @@ int CreatexdockerEnvironment( struct xdockerEnvironment **pp_env ) {
 	}
 	
 	nret = SnprintfAndMakeDir( env->images_path_base , sizeof(env->images_path_base)-1 , "%s/images" , env->xdocker_home ) ;
-	if( nret ) {
+	if( nret )
+	{
 		printf( "*** ERROR : SnprintfAndMakeDir[%s] failed[%d]\n" , env->images_path_base , nret );
 		return -1;
 	}
 	
 	nret = SnprintfAndMakeDir( env->containers_path_base , sizeof(env->containers_path_base)-1 , "%s/containers" , env->xdocker_home ) ;
-	if( nret ) {
+	if( nret )
+	{
 		printf( "*** ERROR : SnprintfAndMakeDir[%s] failed[%d]\n" , env->containers_path_base , nret );
 		return -1;
 	}
 	
 	memset( netbr_name , 0x00 , sizeof(netbr_name) );
 	len = snprintf( netbr_name , sizeof(netbr_name)-1 , "xdocker0" ) ;
-	if( SNPRINTF_OVERFLOW(len,sizeof(netbr_name)-1) ) {
+	if( SNPRINTF_OVERFLOW(len,sizeof(netbr_name)-1) )
+	{
 		printf( "*** ERROR : netbr name overflow\n" );
 		free( env );
 		return -1;
 	}
 	
 	nret = SnprintfAndSystem( cmd , sizeof(cmd) , "brctl show | grep -E \"^%s\" >/dev/null 2>&1" , netbr_name ) ;
-	if( nret ) {
+	if( nret )
+	{
 		nret = SnprintfAndSystem( cmd , sizeof(cmd) , "brctl addbr %s" , netbr_name ) ;
-		if( nret ) {
+		if( nret )
+		{
 			printf( "*** ERROR : system [%s] failed[%d] , errno[%d]\n" , cmd , nret , errno );
 			free( env );
 			return -1;
 		}
-		else if( env->cmd_para.__debug ) {
+		else if( env->cmd_para.__debug )
+		{
 			printf( "system [%s] ok\n" , cmd );
 		}
 		
 		nret = SnprintfAndSystem( cmd , sizeof(cmd) , "ifconfig %s 166.88.0.1" , netbr_name ) ;
-		if( nret ) {
+		if( nret )
+		{
 			printf( "*** ERROR : system [%s] failed[%d] , errno[%d]\n" , cmd , nret , errno );
 			return -1;
 		}
-		else if( env->cmd_para.__debug ) {
+		else if( env->cmd_para.__debug )
+		{
 			printf( "system [%s] ok\n" , cmd );
 		}
 		
 		nret = SnprintfAndSystem( cmd , sizeof(cmd) , "ifconfig %s up" , netbr_name ) ;
-		if( nret ) {
+		if( nret )
+		{
 			printf( "*** ERROR : system [%s] failed[%d] , errno[%d]\n" , cmd , nret , errno );
 			return -1;
 		}
-		else if( env->cmd_para.__debug ) {
+		else if( env->cmd_para.__debug )
+		{
 			printf( "system [%s] ok\n" , cmd );
 		}
 	}
@@ -95,11 +112,13 @@ int CreatexdockerEnvironment( struct xdockerEnvironment **pp_env ) {
 	return 0;
 }
 
-void DestroyxdockerEnvironment( struct xdockerEnvironment **pp_env ) {
-	struct xdockerVolume	*volume = NULL ;
-	struct xdockerVolume	*next_volume = NULL ;
+void DestroyCockerEnvironment( struct CockerEnvironment **pp_env )
+{
+	struct CockerVolume	*volume = NULL ;
+	struct CockerVolume	*next_volume = NULL ;
 	
-	list_for_each_entry_safe( volume , next_volume , & ((*pp_env)->cmd_para.volume_list) , struct xdockerVolume , volume_node ) {
+	list_for_each_entry_safe( volume , next_volume , & ((*pp_env)->cmd_para.volume_list) , struct CockerVolume , volume_node )
+	{
 		list_del( & (volume->volume_node) );
 		free( volume );
 	}

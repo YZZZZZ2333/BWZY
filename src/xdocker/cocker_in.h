@@ -1,3 +1,4 @@
+
 #ifndef _H_XDOCKER_IN_
 #define _H_XDOCKER_IN_
 
@@ -7,7 +8,8 @@
 extern "C" {
 #endif
 
-struct xdockerVolume {
+struct CockerVolume
+{
 	char			*host_path ;
 	int			host_path_len ;
 	char			*container_path ;
@@ -15,7 +17,8 @@ struct xdockerVolume {
 	struct list_head	volume_node ;
 } ;
 
-struct CommandParameter {
+struct CommandParameter
+{
 	char			*_action ;
 	char			*_show ;
 	
@@ -60,7 +63,8 @@ struct CommandParameter {
 	char			*__dst_file ;
 } ;
 
-struct xdockerEnvironment {
+struct CockerEnvironment
+{
 	struct CommandParameter	cmd_para ;
 	unsigned char		cgroup_enable ;
 	
@@ -90,7 +94,7 @@ struct xdockerEnvironment {
  * util
  */
 
-void GetEthernetNames( struct xdockerEnvironment *env , char *container_id );
+void GetEthernetNames( struct CockerEnvironment *env , char *container_id );
 int SplitImageVersion( char *image_id , char *version , int version_bufsize );
 int GetMaxVersionPath( char *version_path_base , char *max_version , int max_version_bufsize );
 
@@ -98,51 +102,51 @@ int GetMaxVersionPath( char *version_path_base , char *max_version , int max_ver
  * environment
  */
 
-int CreatexdockerEnvironment( struct xdockerEnvironment **pp_env );
-void DestroyxdockerEnvironment( struct xdockerEnvironment **pp_env );
+int CreateCockerEnvironment( struct CockerEnvironment **pp_env );
+void DestroyCockerEnvironment( struct CockerEnvironment **pp_env );
 
-int CleanContainerResource( struct xdockerEnvironment *env );
+int CleanContainerResource( struct CockerEnvironment *env );
 
-int CreateContainer( struct xdockerEnvironment *env , char *__image_id , char *__container_id );
+int CreateContainer( struct CockerEnvironment *env , char *__image_id , char *__container_id );
 
-int DoShow_images( struct xdockerEnvironment *env );
-int DoShow_containers( struct xdockerEnvironment *env );
-int DoShow_container_root( struct xdockerEnvironment *env );
+int DoShow_images( struct CockerEnvironment *env );
+int DoShow_containers( struct CockerEnvironment *env );
+int DoShow_container_root( struct CockerEnvironment *env );
 
-int DoAction_install_test( struct xdockerEnvironment *env );
+int DoAction_install_test( struct CockerEnvironment *env );
 
-int DoAction_create( struct xdockerEnvironment *env );
-int DoAction_destroy( struct xdockerEnvironment *env );
-int DoAction_boot( struct xdockerEnvironment *env );
-int DoAction_attach( struct xdockerEnvironment *env );
-int DoAction_run( struct xdockerEnvironment *env );
-int DoAction_rplfile( struct xdockerEnvironment *env );
-int DoAction_putfile( struct xdockerEnvironment *env );
-int DoAction_getfile( struct xdockerEnvironment *env );
-int DoAction_shutdown( struct xdockerEnvironment *env );
-int _DoAction_kill( struct xdockerEnvironment *env , int signal_no );
-int DoAction_kill( struct xdockerEnvironment *env );
+int DoAction_create( struct CockerEnvironment *env );
+int DoAction_destroy( struct CockerEnvironment *env );
+int DoAction_boot( struct CockerEnvironment *env );
+int DoAction_attach( struct CockerEnvironment *env );
+int DoAction_run( struct CockerEnvironment *env );
+int DoAction_rplfile( struct CockerEnvironment *env );
+int DoAction_putfile( struct CockerEnvironment *env );
+int DoAction_getfile( struct CockerEnvironment *env );
+int DoAction_shutdown( struct CockerEnvironment *env );
+int _DoAction_kill( struct CockerEnvironment *env , int signal_no );
+int DoAction_kill( struct CockerEnvironment *env );
 
-int DoAction_version( struct xdockerEnvironment *env );
+int DoAction_version( struct CockerEnvironment *env );
 
-int DoAction_vip( struct xdockerEnvironment *env );
-int DoAction_port_mapping( struct xdockerEnvironment *env );
+int DoAction_vip( struct CockerEnvironment *env );
+int DoAction_port_mapping( struct CockerEnvironment *env );
 
-int DoAction_volume( struct xdockerEnvironment *env );
+int DoAction_volume( struct CockerEnvironment *env );
 
-int DoAction_to_image( struct xdockerEnvironment *env );
-int DoAction_to_container( struct xdockerEnvironment *env );
+int DoAction_to_image( struct CockerEnvironment *env );
+int DoAction_to_container( struct CockerEnvironment *env );
 
-int DoAction_copy_image( struct xdockerEnvironment *env );
-int DoAction_del_image( struct xdockerEnvironment *env );
+int DoAction_copy_image( struct CockerEnvironment *env );
+int DoAction_del_image( struct CockerEnvironment *env );
 
-int DoAction_export( struct xdockerEnvironment *env );
-int DoAction_import( struct xdockerEnvironment *env );
+int DoAction_export( struct CockerEnvironment *env );
+int DoAction_import( struct CockerEnvironment *env );
 
-int DoShow_ssearch( struct xdockerEnvironment *env );
+int DoShow_ssearch( struct CockerEnvironment *env );
 
-int DoAction_spush( struct xdockerEnvironment *env );
-int DoAction_spull( struct xdockerEnvironment *env );
+int DoAction_spush( struct CockerEnvironment *env );
+int DoAction_spull( struct CockerEnvironment *env );
 
 /* depend on
 yum install -y telnet

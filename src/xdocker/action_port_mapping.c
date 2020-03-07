@@ -1,6 +1,8 @@
+
 #include "xdocker_in.h"
 
-int DoAction_port_mapping( struct xdockerEnvironment *env ) {
+int DoAction_port_mapping( struct CockerEnvironment *env )
+{
 	char		container_port_mapping_file[ PATH_MAX + 1 ] ;
 	
 	int		nret = 0 ;

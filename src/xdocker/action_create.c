@@ -1,13 +1,15 @@
+
 #include "xdocker_in.h"
 
-int CreateContainer( struct xdockerEnvironment *env , char *__image , char *__container ) {
+int CreateContainer( struct CockerEnvironment *env , char *__image , char *__container )
+{
 	char			container[ CONTAINER_ID_LEN_MAX + 1 ] ;
 	
 	char			cmd[ 4096 ] ;
 	
 	char			pid_str[ PID_LEN_MAX + 1 ] ;
 	pid_t			pid ;
-	struct xdockerVolume	*volume = NULL ;
+	struct CockerVolume	*volume = NULL ;
 	FILE			*container_volume_fp = NULL ;
 	
 	char			container_rwlayer_path[ PATH_MAX + 1 ] ;
@@ -29,7 +31,8 @@ int CreateContainer( struct xdockerEnvironment *env , char *__image , char *__co
 	nret = access( env->container_path_base , F_OK ) ;
 	I0TER1( "*** ERROR : container '%s' exist\n" , env->cmd_para.__container )
 	
-	if( __image && __image[0] ) {
+	if( __image && __image[0] )
+	{
 		char	image[ IMAGES_ID_LEN_MAX + 1 ] ;
 		char	version[ PATH_MAX + 1 ] ;
 		char	*p = NULL ;
@@ -38,16 +41,19 @@ int CreateContainer( struct xdockerEnvironment *env , char *__image , char *__co
 		memset( image , 0x00 , sizeof(image) );
 		strncpy( image , __image , sizeof(image)-1 );
 		p = strtok( image , "," ) ;
-		while( p ) {
+		while( p )
+		{
 			p2 = strchr( p , ':' ) ;
-			if( p2 == NULL ) {
+			if( p2 == NULL )
+			{
 				Snprintf( env->version_path_base , sizeof(env->version_path_base) , "%s/%s" , env->images_path_base , p ) ;
 				nret = GetMaxVersionPath( env->version_path_base , version , sizeof(version) ) ;
 				INTER1( "*** ERROR : GetMaxVersionPath[%s] failed[%d]\n" , env->version_path_base , nret )
 				
 				nret = SnprintfAndCheckDir( NULL , -1 , "%s/%s/%s/rlayer" , env->images_path_base , p , version ) ;
 			}
-			else {
+			else
+			{
 				nret = SnprintfAndCheckDir( NULL , -1 , "%s/%.*s/%s/rlayer" , env->images_path_base , (int)(p2-p) , p , p2+1 ) ;
 			}
 			INTER1( "*** ERROR : image[%s] not found\n" , p )
@@ -56,7 +62,8 @@ int CreateContainer( struct xdockerEnvironment *env , char *__image , char *__co
 		}
 	}
 	
-	if( __container == NULL ) {
+	if( __container == NULL )
+	{
 		memset( container , 0x00 , sizeof(container) );
 		GenerateContainerId( __image , container );
 		__container = container ;
@@ -67,9 +74,11 @@ int CreateContainer( struct xdockerEnvironment *env , char *__image , char *__co
 	/* read pid file */
 	memset( pid_str , 0x00 , sizeof(pid_str) );
 	nret = ReadFileLine( pid_str , sizeof(pid_str)-1 , NULL , -1 , "%s/%s/pid" , env->containers_path_base , __container ) ;
-	if( nret == 0 ) {
+	if( nret == 0 )
+	{
 		pid = atoi(pid_str) ;
-		if( pid > 0 ) {
+		if( pid > 0 )
+		{
 			nret = kill( pid , 0 ) ;
 			I0TER1( "*** ERROR : container is already running\n" )
 		}
@@ -96,25 +105,29 @@ int CreateContainer( struct xdockerEnvironment *env , char *__image , char *__co
 	INTER1( "*** ERROR : SnprintfAndMakeDir workdir failed[%d] , errno[%d]\n" , nret , errno )
 	EIDTI( "mkdir %s ok\n" , container_workdir_path )
 	
-	if( __image && __image[0] ) {
+	if( __image && __image[0] )
+	{
 		nret = WriteFileLine( __image , container_image_file , sizeof(container_image_file) , "%s/image" , env->container_path_base ) ;
 		INTER1( "*** ERROR : WriteFileLine image failed[%d] , errno[%d]\n" , nret , errno )
 		EIDTI( "write file %s ok\n" , container_image_file )
 	}
 	/*
-	else {
+	else
+	{
 		nret = WriteFileLine( "" , container_image_file , sizeof(container_image_file) , "%s/images" , env->container_path_base ) ;
 		INTER1( "*** ERROR : WriteFileLine image failed[%d] , errno[%d]\n" , nret , errno )
 		EIDTI( "write file %s ok\n" , container_image_file )
 	}
 	*/
 	
-	if( ! list_empty( & (env->cmd_para.volume_list) ) ) {
+	if( ! list_empty( & (env->cmd_para.volume_list) ) )
+	{
 		Snprintf( container_volume_file , sizeof(container_volume_file) , "%s/volume" , env->container_path_base ) ;
 		container_volume_fp = fopen( container_volume_file , "w" ) ;
 		IxTER1( (container_volume_fp==NULL) , "*** ERROR : WriteFileLine volume failed[%d] , errno[%d]\n" , nret , errno )
 		
-		list_for_each_entry( volume , & (env->cmd_para.volume_list) , struct xdockerVolume , volume_node ) {
+		list_for_each_entry( volume , & (env->cmd_para.volume_list) , struct CockerVolume , volume_node )
+		{
 			fprintf( container_volume_fp , "%.*s:%s\n" , volume->host_path_len , volume->host_path , volume->container_path );
 			IDTI( "write file %s [%.*s:%s]\n" , container_volume_file , volume->host_path_len , volume->host_path , volume->container_path )
 		}
@@ -134,7 +147,8 @@ int CreateContainer( struct xdockerEnvironment *env , char *__image , char *__co
 	INTER1( "*** ERROR : WriteFileLine vip failed[%d] , errno[%d]\n" , nret , errno )
 	EIDTI( "write file [%s] ok\n" , container_rwlayer_net_file )
 	
-	if( STRCMP( env->cmd_para.__net , == , "BRIDGE" ) ) {
+	if( STRCMP( env->cmd_para.__net , == , "BRIDGE" ) )
+	{
 		nret = WriteFileLine( env->netns_name , container_rwlayer_netns_file , sizeof(container_rwlayer_netns_file) , "%s/netns" , env->container_path_base ) ;
 		INTER1( "*** ERROR : WriteFileLine netns failed[%d] , errno[%d]\n" , nret , errno )
 		EIDTI( "write file [%s] ok\n" , container_rwlayer_netns_file )
@@ -143,7 +157,8 @@ int CreateContainer( struct xdockerEnvironment *env , char *__image , char *__co
 		INTER1( "*** ERROR : WriteFileLine vip failed[%d] , errno[%d]\n" , nret , errno )
 		EIDTI( "write file [%s] ok\n" , container_vip_file )
 		
-		if( env->cmd_para.__port_mapping ) {
+		if( env->cmd_para.__port_mapping )
+		{
 			nret = WriteFileLine( env->cmd_para.__port_mapping , container_port_mapping_file , sizeof(container_port_mapping_file) , "%s/port_mapping" , env->container_path_base ) ;
 			INTER1( "*** ERROR : WriteFileLine port_mapping failed[%d] , errno[%d]\n" , nret , errno )
 			EIDTI( "write file [%s] ok\n" , container_port_mapping_file )
@@ -153,7 +168,8 @@ int CreateContainer( struct xdockerEnvironment *env , char *__image , char *__co
 		INTER1( "*** ERROR : system [%s] failed[%d] , errno[%d]\n" , cmd , nret , errno )
 		EIDTI( "system [%s] ok\n" , cmd )
 	}
-	else if( STRCMP( env->cmd_para.__net , == , "CUSTOM" ) ) {
+	else if( STRCMP( env->cmd_para.__net , == , "CUSTOM" ) )
+	{
 		nret = WriteFileLine( env->netns_name , container_rwlayer_netns_file , sizeof(container_rwlayer_netns_file) , "%s/netns" , env->container_path_base ) ;
 		INTER1( "*** ERROR : WriteFileLine netns failed[%d] , errno[%d]\n" , nret , errno )
 		EIDTI( "write file [%s] ok\n" , container_rwlayer_netns_file )
@@ -166,15 +182,19 @@ int CreateContainer( struct xdockerEnvironment *env , char *__image , char *__co
 	return 0;
 }
 
-int DoAction_create( struct xdockerEnvironment *env ) {
+int DoAction_create( struct CockerEnvironment *env )
+{
 	int		nret = 0 ;
 	
 	nret = CreateContainer( env , env->cmd_para.__image , env->cmd_para.__container ) ;
-	if( nret == 0 ) {
-		if( env->cmd_para.__boot ) {
+	if( nret == 0 )
+	{
+		if( env->cmd_para.__boot )
+		{
 			nret = DoAction_boot( env ) ;
 		}
-		else {
+		else
+		{
 			printf( "OK\n" );
 		}
 	}

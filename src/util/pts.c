@@ -1,6 +1,8 @@
+
 #include "xdocker_util.h"
 
-pid_t pty_fork( struct termios *p_origin_termios , struct winsize *p_origin_winsize , int *p_ptm_fd ) {
+pid_t pty_fork( struct termios *p_origin_termios , struct winsize *p_origin_winsize , int *p_ptm_fd )
+{
 	int		ptm_fd ;
 	int		pts_fd ;
 	char		pts_pathfilename[ PATH_MAX + 1 ] ;
@@ -15,29 +17,34 @@ pid_t pty_fork( struct termios *p_origin_termios , struct winsize *p_origin_wins
 		return -1;
 	
 	nret = ptsname_r( ptm_fd , pts_pathfilename , sizeof(pts_pathfilename) ) ;
-	if( nret == -1 ) {
+	if( nret == -1 )
+	{
 		close( ptm_fd );
 		return -2;
 	}
 	
 	nret = chmod( pts_pathfilename , S_IRUSR|S_IWUSR|S_IWGRP ) ;
-	if( nret == -1 ) {
+	if( nret == -1 )
+	{
 		close( ptm_fd );
 		return -3;
 	}
 	
 	lock = 0 ;
 	nret = ioctl( ptm_fd , TIOCSPTLCK , & lock ) ;
-	if( nret == -1 ) {
+	if( nret == -1 )
+	{
 		close( ptm_fd );
 		return -4;
 	}
 	
 	pid = fork() ;
-	if( pid == -1 ) {
+	if( pid == -1 )
+	{
 		return -11;
 	}
-	else if( pid == 0 ) {
+	else if( pid == 0 )
+	{
 		close( ptm_fd );
 		
 		nret = setsid() ;
@@ -54,13 +61,15 @@ pid_t pty_fork( struct termios *p_origin_termios , struct winsize *p_origin_wins
 			return -23;
 #endif
 		
-		if( p_origin_termios ) {
+		if( p_origin_termios )
+		{
 			nret = tcsetattr( pts_fd , TCSANOW , p_origin_termios ) ;
 			if( nret == -1 )
 				return -24;
 		}
 		
-		if( p_origin_winsize ) {
+		if( p_origin_winsize )
+		{
 			nret = ioctl( pts_fd , TIOCSWINSZ , p_origin_winsize ) ;
 			if( nret == -1 )
 				return -25;
@@ -83,7 +92,8 @@ pid_t pty_fork( struct termios *p_origin_termios , struct winsize *p_origin_wins
 		
 		return 0;
 	}
-	else {
+	else
+	{
 		if( p_ptm_fd )
 			(*p_ptm_fd) = ptm_fd ;
 		

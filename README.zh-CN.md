@@ -1,15 +1,26 @@
-ÈİÆ÷ÒıÇæ(xdocker)
+ÈİÆ÷Òıxdockerer)
 ===================
 
 <!-- TOC -->
-- [°²×°](#2-°²×°)
+
+- [1. ¸ÅÊö](#1-¸ÅÊö)
+    - [1.1. xdockerÊÇÊ²Ã´](#xdockerkerÊÇÊ²Ã´)
+    - [1.2. ¼æÈİĞÔ](#12-¼æÈİĞÔ)
+    - [1.3. ÏµÍ³¼Ü¹¹](#13-ÏµÍ³¼Ü¹¹)
+        - [1.3.1. ×´Ì¬Ç¨ÒÆÍ¼](#131-×´Ì¬Ç¨ÒÆÍ¼)
+        - [1.3.2. ²ãµşÎÄ¼şÏµÍ³](#132-²ãµşÎÄ¼şÏµÍ³)
+        - [1.3.3. ÍøÂç](#133-ÍøÂç)
+        - [1.3.4. ÏµÍ³×ÊÔ´ÏŞÖÆ](#134-ÏµÍ³×ÊÔ´ÏŞÖÆ)
+        - [1.3.5. Î±ÖÕ¶Ë](#135-Î±ÖÕ¶Ë)
+    - [1.4. ¿ìËÙÊ¹ÓÃ](#14-¿ìËÙÊ¹ÓÃ)
+- [2. °²×°](#2-°²×°)
     - [2.1. LinuxÔ´Âë±àÒë](#21-linuxÔ´Âë±àÒë)
         - [2.1.1. È·ÈÏÒÀÀµ°üÒÑ°²×°](#211-È·ÈÏÒÀÀµ°üÒÑ°²×°)
         - [2.1.2. È·ÈÏÄÚºË×ª·¢¹¦ÄÜÒÑ¿ªÆô](#212-È·ÈÏÄÚºË×ª·¢¹¦ÄÜÒÑ¿ªÆô)
-        - [2.1.3. ×¼±¸xdockerÔ´Âë](#213-×¼±¸xdockerÔ´Âë)
+        - [2.1.3. ×¼±¸xdockerÔ´Âë](#213-×¼xdockerrÔ´Âë)
         - [2.1.4. ±àÒë°²×°](#214-±àÒë°²×°)
 - [3. Ê¹ÓÃ½Ì³Ì](#3-Ê¹ÓÃ½Ì³Ì)
-    - [3.1. xdockerÖ¸Áî](#31-xdockerÖ¸Áî)
+    - [3.1. xdockerÖ¸Áî](#xdockerkerÖ¸Áî)
         - [3.1.1. ¶îÍâ¸½¼ÓÑ¡Ïî](#311-¶îÍâ¸½¼ÓÑ¡Ïî)
         - [3.1.2. ²éÑ¯¾µÏñÁĞ±í](#312-²éÑ¯¾µÏñÁĞ±í)
         - [3.1.3. ÓÉ¾µÏñ´´½¨ÈİÆ÷](#313-ÓÉ¾µÏñ´´½¨ÈİÆ÷)
@@ -33,8 +44,8 @@
         - [3.1.17. µ¼Èë¾µÏñ](#3117-µ¼Èë¾µÏñ)
         - [3.1.18. ÉÏ´«¾µÏñµ½ssh¾µÏñ¿â](#3118-ÉÏ´«¾µÏñµ½ssh¾µÏñ¿â)
         - [3.1.19. ´Óssh¾µÏñ¿âÏÂÔØ¾µÏñ](#3119-´Óssh¾µÏñ¿âÏÂÔØ¾µÏñ)
-        - [3.1.20. ÉÏ´«¾µÏñµ½xdocker×ÔÓĞ¾µÏñ¿â](#3120-ÉÏ´«¾µÏñµ½xdocker×ÔÓĞ¾µÏñ¿â)
-        - [3.1.21. ´Óxdocker×ÔÓĞ¾µÏñ¿âÏÂÔØ¾µÏñ](#3121-´Óxdocker×ÔÓĞ¾µÏñ¿âÏÂÔØ¾µÏñ)
+        - [3.1.20. ÉÏ´«¾µÏñxdockerr×ÔÓĞ¾µÏñ¿â](#3120-ÉÏxdockercker×ÔÓĞ¾µÏñ¿â)
+        - [3.1.21. ´Óxdocker×ÔÓĞ¾µÏñ¿âÏÂÔØ¾µÏñ](#3xdockerocker×ÔÓĞ¾µÏñ¿âÏÂÔØ¾µÏñ)
         - [3.1.22. ÔÚÈİÆ÷ÍâÖ´ĞĞÈİÆ÷ÄÚÃüÁî](#3122-ÔÚÈİÆ÷ÍâÖ´ĞĞÈİÆ÷ÄÚÃüÁî)
         - [3.1.23. Ìæ»»ÈİÆ÷ÄÚÎÄ¼şÄÚÈİ](#3123-Ìæ»»ÈİÆ÷ÄÚÎÄ¼şÄÚÈİ)
         - [3.1.24. ¸´ÖÆÈİÆ÷ÍâÎÄ¼ş»òÄ¿Â¼µ½ÈİÆ÷ÄÚ](#3124-¸´ÖÆÈİÆ÷ÍâÎÄ¼ş»òÄ¿Â¼µ½ÈİÆ÷ÄÚ)
@@ -53,22 +64,33 @@
         - [3.3.4. ¾µÏñÅäÖÃÊµÀı»¯ÈİÆ÷²¢Æô¶¯](#334-¾µÏñÅäÖÃÊµÀı»¯ÈİÆ÷²¢Æô¶¯)
         - [3.3.5. µ¥½ø³ÌÆô¶¯ÈİÆ÷](#335-µ¥½ø³ÌÆô¶¯ÈİÆ÷)
 - [4. ×îºó](#4-×îºó)
-    - [4.1. ¹ØÓÚxdocker](#41-¹ØÓÚxdocker)
+    - [4.1. ¹ØÓÚxdocker](#41-¹ØÓÚcoxdocker
     - [4.2. ¹ØÓÚ×÷Õß](#42-¹ØÓÚ×÷Õß)
 
 <!-- /TOC -->
+
+# 1. ¸ÅÊö
+
+## 1.1. xdockerÊÇÊ²Ã´
+
+`xdocker`ÊÇÎÒ¸öÈËÓÃCÓïÑÔÍêÈ«×ÔÑĞµÄÈİÆ÷ÒıÇæ£¨¶Ô±ê`Docker`¡¢`°¢ÀïPouch`£©£¬Ö÷Òª½â¾öÈçÏÂ¹¤×÷³¡¾°ÖĞµÄÍ´µã£º
+
+* Ô­ÉúÖ§³Ö¶à½ø³Ì¼Ü¹¹µÄÈİÆ÷Ê¹ÓÃÄ£Ê½£¬ÎŞĞëÒıÈëµÚÈı·½×é¼ş¡£
+* °´ĞéÄâÖ÷»ú·½Ê½¹ÜÀíÈİÆ÷£¬½»»¥Ê½¹¹½¨¾µÏñ£¬Ğ´¹ı¸´ÔÓDockerfileµÄÈË¶¼Éî¶ñÍ´¾ø¡£
+* ¾µÏñ¶à°æ±¾¹²´æ¹ÜÀí¡£
+* £¨¸ü¶à...£©
 
 `xdocker`Ê¹ÓÃµ½ÁËÒÔÏÂLinuxµ×²ã¼¼Êõ£º`LXC`¡¢`cgroup`¡¢`overlayfs`¡¢`iptables`¡¢`ptms`µÈ¡£
 
 ## 1.2. ¼æÈİĞÔ
 
-CentOS 7
+±ÊÕß»·¾³ÊÇ`Red Hat Enterprise Linux Server release 7.4`£¬ÀíÂÛÉÏ7°æ±¾¡¢ÒÔ¼°¶ÔÓ¦`CentOS`¶¼ÊÇ¿ÉÓÃµÄ¡£ÓĞÅóÓÑ·´Ó³ÔÚ`Ubuntu`ÉÏ²»ÄÜÊ¹ÓÃ£¬¾­±ÊÕß³õ²½ÊÔÑéÊÇÓÉÓÚ»·¾³²îÒìÔì³ÉÎÊÌâ£¬ËùÒÔ·Ç`RedHat/CentOS`»·¾³µÈ´ıÒÔºó½â¾öÆä¼æÈİĞÔ¡£
 
 ## 1.3. ÏµÍ³¼Ü¹¹
 
 ![images/xdocker_architecture.png](images/xdocker_architecture.png)
 
-ÔÚLXCÖĞ£¬ÈİÆ÷Ö»ÊÇÄÚºËÃüÃû¿Õ¼ä¸ôÀëµÄ¸ù½ø³ÌÒÔ¼°×Ó½ø³ÌÊ÷£¬¸ôÀëÓòÓĞÖ÷»úÃû×Ö¡¢½ø³Ì¿Õ¼ä¡¢¸ùÎÄ¼şÏµÍ³¡¢IPC¡¢ÍøÂçµÈ¡£`xdocker`ÍêÕûµÄÊµÏÖÁËÒÔÉÏËùÓĞ¸ôÀëÓò£¬ÔÚÈİÆ÷¹ÜÀíÉè¼ÆÉÏÇãÏòÓÚĞéÄâÖ÷»ú·½Ê½£¬Ò²Ö§³ÖÀàËÆ`Docker`µÄµ¥½ø³Ì·½Ê½¡£
+ÔÚLXCÖĞ£¬ÈİÆ÷Ö»ÊÇÄÚºËÃüÃû¿Õ¼ä¸ôÀëµÄ¸ù½ø³ÌÒÔ¼°×Ó½ø³ÌÊ÷£¬¸ôÀëÓòÓĞÖ÷»úÃû×Ö¡¢½ø³Ì¿ÕxdockerÍ³¡¢IPC¡¢ÍøÂçµÈ¡£`cocker`ÍêÕûµÄÊµÏÖÁËÒÔÉÏËùÓĞ¸ôÀëÓò£¬ÔÚÈİÆ÷¹ÜÀíÉè¼ÆÉÏÇãÏòÓÚĞéÄâÖ÷»ú·½Ê½£¬Ò²Ö§³ÖÀàËÆ`Docker`µÄµ¥½ø³Ì·½Ê½¡£
 
 `xdocker`×Ô´øÁËÈİÆ÷¸ù½ø³Ì£¬¸ºÔğÍ¨¹ıÎ±ÖÕ¶Ë·½Ê½ÇÅ½ÓÈİÆ÷ÄÚÍâ£¬¶ø²»ÊÇ±ØĞëÍ¨¹ı`ssh`¡£
 
@@ -78,23 +100,23 @@ CentOS 7
 
 ![images/xdocker_state_transition_diagram.png](images/xdocker_state_transition_diagram.png)
 
-`xdocker`¾µÏñ¿ÉÒÔ±¾µØ¹¹½¨»ò´Ó¾µÏñ¿âÉÏ´«ÏÂÔØ£¬¾µÏñ¿âÄ¿Ç°Ö»Ö§³Ö`ssh`·şÎñ¶Ë£¬ºóĞø°æ±¾ÖĞ»á¼ÓÈë`xdocker`Ô­Éú·şÎñÆ÷¡£
+`xdocker`¾µÏñ¿ÉÒÔ±¾µØ¹¹½¨»ò´Ó¾µÏñ¿âÉÏ´«ÏÂÔØ£¬¾µÏñ¿âÄ¿Ç°Ö»Ö§³Ö`ssxdockerºóĞø°æ±¾ÖĞ»á¼ÓÈë`cocker`Ô­Éú·şÎñÆ÷¡£
 
 `xdocker`¾µÏñÔÊĞí²»Í¬°æ±¾¹²´æ£¬´´½¨ÈİÆ÷Ê±¿ÉÒÔÖ¸¶¨¾µÏñ°æ±¾£¬»òÕßÄ¬ÈÏ×îĞÂ°æ¡£¾µÏñ¿ÉÒÔ¸´ÖÆºÍÉ¾³ı£¬Ò²¿ÉÒÔĞŞ¸Ä°æ±¾ºÅ¡£
 
 `xdocker`ÈİÆ÷´´½¨³öÀ´ºó¿ÉÒÔÆô¶¯¡¢¹Ø±ÕºÍÏú»Ù¡£ĞŞ¸ÄÈİÆ÷ÊôĞÔÈçĞéÄâIP¡¢¶Ë¿ÚÓ³ÉäºÍ¾íÓ³Éä±ØĞëÔÚÈİÆ÷¹Ø±Õ×´Ì¬ÏÂ½øĞĞ¡£
 
-`xdocker`¾µÏñ¿ÉÒÔ×ª»¯Îª`xdocker`ÈİÆ÷±ãÓÚ½»»¥Ê½ĞŞ¸Ä£¬È»ºóÔÙ×ª»¯»ØÀ´¡£
+`xdocker`¾µÏñ¿ÉÒÔ×ªxdockerker`ÈİÆ÷±ãÓÚ½»»¥Ê½ĞŞ¸Ä£¬È»ºóÔÙ×ª»¯»ØÀ´¡£
 
 ### 1.3.2. ²ãµşÎÄ¼şÏµÍ³
 
 ![images/xdocker_overlayfs.png](images/xdocker_overlayfs.png)
 
-²ãµşÎÄ¼şÏµÍ³ÊÇ¶à¾µÏñÈİÆ÷µÄ´æ´¢»ù´¡£¬xdocker²ÉÓÃoverlayfs×÷ÎªÆä²ãµşÎÄ¼şÏµÍ³ÒıÇæ£¬¿ÉÒÔµş¼Ó¼¸ºõÎŞÏŞµÄ¾µÏñ²ã¡£
+²ãµşÎÄ¼şÏµÍ³ÊÇ¶à¾µÏñÈİÆ÷µÄ´æxdockercker²ÉÓÃoverlayfs×÷ÎªÆä²ãµşÎÄ¼şÏµÍ³ÒıÇæ£¬¿ÉÒÔµş¼Ó¼¸ºõÎŞÏŞµÄ¾µÏñ²ã¡£
 
-`xdocker`µÄ¾µÏñºÍÈİÆ÷µÈ¶¼´æ·ÅÔÚ»·¾³±äÁ¿`xdocker_HOME`Ö¸ÏòµÄÖ÷Ä¿Â¼ÖĞ£¬ËùÒÔ¹æ»®ÆäÈİÁ¿ÊÇÊ¹ÓÃÇ°±ØĞëÒª¿¼ÂÇµÄÎÊÌâ¡£Èç¹ûÃ»ÓĞÉèÖÃ»·¾³±äÁ¿`xdocker_HOME`£¬ÔòÄ¬ÈÏÖ¸Ïò`/var/xdocker`¡£
+`xdocker`µÄ¾µÏñºÍÈİÆ÷µÈ¶¼´æ·ÅÔÚ»·¾³±äÁ¿`XDOCKER_HOME`Ö¸ÏòµÄÖ÷Ä¿Â¼ÖĞ£¬ËùÒÔ¹æ»®ÆäÈİÁ¿ÊÇÊ¹ÓÃÇ°±ØĞëÒª¿¼ÂÇµÄÎÊÌâ¡£Èç¹ûÃ»ÓĞÉèÖÃxdockerOCKER_HOME`£¬ÔòÄ¬ÈÏÖ¸Ïò`/var/cocker`¡£
 
-`xdocker_HOME`Ö÷Ä¿Â¼ÖĞÓĞ¾µÏñÖ÷Ä¿Â¼`images`¡¢ÈİÆ÷Ö÷Ä¿Â¼`containers`¡¢`ssh`¾µÏñ²Ö¿â`srepo`£¬ÒÔ¼°ÈÕÖ¾ÎÄ¼ş`xdocker.log`¡£
+`XDOCKER_HOME`Ö÷Ä¿Â¼ÖĞÓĞ¾µÏñÖ÷Ä¿Â¼`images`¡¢ÈİÆ÷Ö÷Ä¿Â¼`containers`¡¢`ssh`¾µÏñ²Ö¿âxdocker`£¬ÒÔ¼°ÈÕÖ¾ÎÄ¼ş`cocker.log`¡£
 
 ### 1.3.3. ÍøÂç
 
@@ -108,7 +130,7 @@ CentOS 7
 | CUSTOM | ½ö½öÔ¤ÖÃÍøÂçÃüÃû¿Õ¼ä£¬²»´´½¨ÈİÆ÷ÄÚÍâÍø¿¨µÈ£¬ÍêÈ«ÓÉÓÃ»§×ÔÉèÖÃ |
 | BRIDGE | Ô¤ÖÃÒÔNAT·½Ê½µÄÈİÆ÷ÏòËŞÖ÷»úµÄÍøÂçÁ¬½Ó·½Ê½£¬×Ô¶¨Òå¶à×éÖ¸¶¨¶Ë¿ÚÓ³Éä×ª·¢µÄËŞÖ÷»úÏòÈİÆ÷µÄÍøÂçÄ£ĞÍ |
 
-Ê×´ÎÖ´ĞĞ`xdocker`»á´´½¨ÍøÇÅÉè±¸`xdocker0`£¬Íø¶ÎÎª`166.88.0.x`¡£
+Ê×´ÎÖ´ĞĞxdockerr`»á´´½¨ÍøÇÅÉè±¸`coxdocker£¬Íø¶ÎÎª`166.88.0.x`¡£
 
 ### 1.3.4. ÏµÍ³×ÊÔ´ÏŞÖÆ
 
@@ -120,11 +142,11 @@ CentOS 7
 
 ![images/xdocker_pty.png](images/xdocker_pty.png)
 
-×Ô´øÈİÆ÷¸ù½ø³Ì½ÓÊÜ¿Í»§¶Ë`xdocker`Á¬½Óºó»á´´½¨Î±ÖÕ¶Ë»á»°£¬¾ÍÏñµÇÂ¼µ½ĞéÄâÖ÷»úÉÏÃüÁî½»»¥Ò»Ñù£¬ÎŞĞèÊ¹ÓÃ`ssh`¡£
+×Ô´øÈİÆ÷¸ù½ø³Ì½ÓÊÜxdockercker`Á¬½Óºó»á´´½¨Î±ÖÕ¶Ë»á»°£¬¾ÍÏñµÇÂ¼µ½ĞéÄâÖ÷»úÉÏÃüÁî½»»¥Ò»Ñù£¬ÎŞĞèÊ¹ÓÃ`ssh`¡£
 
 ## 1.4. ¿ìËÙÊ¹ÓÃ
 
-Ê¹ÓÃÖ÷¿Ø¹¤¾ßxdocker¿ìËÙ´´½¨Ò»¸öĞ¡ĞÍ²âÊÔ¾µÏñ£¬ÀïÃæµ÷ÓÃÁË×Ô´ø½Å±¾`xdocker_install_test.sh`¹¹½¨¸ùÎÄ¼şÏµÍ³¡£
+Ê¹ÓÃÖ÷¿Ø¹¤xdockerr¿ìËÙ´´½¨Ò»¸öĞ¡ĞÍ²âÊÔ¾µÏñ£¬ÀïÃæµ÷ÓÃÁË×Ô´øxdockerker_install_test.sh`¹¹½¨¸ùÎÄ¼şÏµÍ³¡£
 
 È»ºóÊ¹ÓÃÖ¸Áî`-a boot`»ùÓÚ¸Õ¸Õ´´½¨µÄ¾µÏñ`test`Æô¶¯Ò»¸öÈİÆ÷`test`£¬²¢ÇÒÖ±½Ó´ò¿ªÒ»¸ö»á»°Á¬½Óµ½ÈİÆ÷ÖĞµÄÎ±ÖÕ¶Ë...ÍË³öÎ±ÖÕ¶Ëºó£¬Ê¹ÓÃÖ¸Áî`-a shutdown`¹Ø±ÕÈİÆ÷£¬×îºóÊ¹ÓÃÖ¸Áî`-a destroy`Ïú»ÙÈİÆ÷¡£
 
@@ -188,11 +210,18 @@ yum install -y openssl-devel
 # cd xdocker-X.X.X
 ```
 
-»ò¿ËÂ¡xdockerÔ´Âë¿â£¬½øÈë
+»ò¿ËxdockerrÔ´Âë¿â£¬½øÈë
 
 ```
-# git clone https://github.com/YZZZZZ2333/BWZY
-# cd BWZY
+# git clone https://gitee.com/calvinwilliams/xdocker
+# cd xdocker
+```
+
+or
+
+```
+# git clone https://github.com/calvinwilliams/xdocker
+# cd xdocker
 ```
 
 ### 2.1.4. ±àÒë°²×°
@@ -203,10 +232,10 @@ yum install -y openssl-devel
 
 ```
 # make -f makefile.Linux clean
-make[1]: ½øÈëÄ¿Â¼¡°/home/calvin/src/xdocker/shbin¡±
-make[1]: Àë¿ªÄ¿Â¼¡°/home/calvin/src/xdocker/shbin¡±
-make[1]: ½øÈëÄ¿Â¼¡°/home/calvin/src/xdocker/src¡±
-make[2]: ½øÈëÄ¿Â¼¡°/home/calvin/src/xdocker/src/util¡±
+make[1]: ½øÈëÄ¿Â¼¡°/home/caxdockerrc/cocker/shbin¡±
+make[1]: Àë¿ªÄ¿Â¼¡°/home/calvinxdockerocker/shbin¡±
+make[1]: ½øÈëÄ¿Â¼¡°/home/caxdockerrc/cocker/src¡±
+make[2]: ½øÈëÄ¿Â¼¡°/home/caxdockerrc/cocker/src/util¡±
 rm -f list.o
 rm -f LOGC.o
 rm -f version.o
@@ -215,8 +244,8 @@ rm -f string.o
 rm -f socket.o
 rm -f pts.o
 rm -f libxdocker_util.so
-make[2]: Àë¿ªÄ¿Â¼¡°/home/calvin/src/xdocker/src/util¡±
-make[2]: ½øÈëÄ¿Â¼¡°/home/calvin/src/xdocker/src/xdocker¡±
+make[2]: Àë¿ªÄ¿Â¼¡°/home/calvinxdockerocker/src/util¡±
+make[2]: ½øÈëÄ¿Â¼¡°/home/caxdockerrc/coxdockerrc/cocker¡±
 rm -f util.o
 rm -f main.o
 rm -f env.o
@@ -242,15 +271,15 @@ rm -f show_ssearch.o
 rm -f action_spush.o
 rm -f action_spull.o
 rm -f xdocker
-make[2]: Àë¿ªÄ¿Â¼¡°/home/calvin/src/xdocker/src/xdocker¡±
-make[2]: ½øÈëÄ¿Â¼¡°/home/calvin/src/xdocker/src/xdockerinit¡±
+make[2]: Àë¿ªÄ¿Â¼¡°/home/calvinxdockerockerxdockerocker¡±
+make[2]: ½øÈëÄ¿Â¼¡°/home/caxdockerrc/coxdockerrc/cockerinit¡±
 rm -f main.o
 rm -f server.o
 rm -f pty.o
 rm -f pts_and_tcp_bridge.o
 rm -f xdockerinit
-make[2]: Àë¿ªÄ¿Â¼¡°/home/calvin/src/xdocker/src/xdockerinit¡±
-make[1]: Àë¿ªÄ¿Â¼¡°/home/calvin/src/xdocker/src¡±
+make[2]: Àë¿ªÄ¿Â¼¡°/home/calvinxdockerockerxdockerockerinit¡±
+make[1]: Àë¿ªÄ¿Â¼¡°/home/calvinxdockerocker/src¡±
 ```
 
 ±àÒë²¢°²×°µ½ÏµÍ³Ä¿Â¼Àï
@@ -259,8 +288,8 @@ make[1]: Àë¿ªÄ¿Â¼¡°/home/calvin/src/xdocker/src¡±
 
 ```
 # make -f makefile.Linux install
-make[1]: ½øÈëÄ¿Â¼¡°/home/calvin/src/xdocker/src¡±
-make[2]: ½øÈëÄ¿Â¼¡°/home/calvin/src/xdocker/src/util¡±
+make[1]: ½øÈëÄ¿Â¼¡°/home/caxdockerrc/cocker/src¡±
+make[2]: ½øÈëÄ¿Â¼¡°/home/caxdockerrc/cocker/src/util¡±
 rm -f list.o
 rm -f LOGC.o
 rm -f version.o
@@ -269,8 +298,8 @@ rm -f string.o
 rm -f socket.o
 rm -f pts.o
 rm -f libxdocker_util.so
-make[2]: Àë¿ªÄ¿Â¼¡°/home/calvin/src/xdocker/src/util¡±
-make[2]: ½øÈëÄ¿Â¼¡°/home/calvin/src/xdocker/src/xdocker¡±
+make[2]: Àë¿ªÄ¿Â¼¡°/home/calvinxdockerocker/src/util¡±
+make[2]: ½øÈëÄ¿Â¼¡°/home/caxdockerrc/coxdockerrc/cocker¡±
 rm -f util.o
 rm -f main.o
 rm -f env.o
@@ -296,19 +325,19 @@ rm -f show_ssearch.o
 rm -f action_spush.o
 rm -f action_spull.o
 rm -f xdocker
-make[2]: Àë¿ªÄ¿Â¼¡°/home/calvin/src/xdocker/src/xdocker¡±
-make[2]: ½øÈëÄ¿Â¼¡°/home/calvin/src/xdocker/src/xdockerinit¡±
+make[2]: Àë¿ªÄ¿Â¼¡°/home/calvinxdockerockerxdockerocker¡±
+make[2]: ½øÈëÄ¿Â¼¡°/home/caxdockerrc/coxdockerrc/cockerinit¡±
 rm -f main.o
 rm -f server.o
 rm -f pty.o
 rm -f pts_and_tcp_bridge.o
 rm -f xdockerinit
-make[2]: Àë¿ªÄ¿Â¼¡°/home/calvin/src/xdocker/src/xdockerinit¡±
-make[1]: Àë¿ªÄ¿Â¼¡°/home/calvin/src/xdocker/src¡±
-make[1]: ½øÈëÄ¿Â¼¡°/home/calvin/src/xdocker/shbin¡±
-make[1]: Àë¿ªÄ¿Â¼¡°/home/calvin/src/xdocker/shbin¡±
-make[1]: ½øÈëÄ¿Â¼¡°/home/calvin/src/xdocker/src¡±
-make[2]: ½øÈëÄ¿Â¼¡°/home/calvin/src/xdocker/src/util¡±
+make[2]: Àë¿ªÄ¿Â¼¡°/home/calvinxdockerockerxdockerockerinit¡±
+make[1]: Àë¿ªÄ¿Â¼¡°/home/calvinxdockerocker/src¡±
+make[1]: ½øÈëÄ¿Â¼¡°/home/caxdockerrc/cocker/shbin¡±
+make[1]: Àë¿ªÄ¿Â¼¡°/home/calvinxdockerocker/shbin¡±
+make[1]: ½øÈëÄ¿Â¼¡°/home/caxdockerrc/cocker/src¡±
+make[2]: ½øÈëÄ¿Â¼¡°/home/caxdockerrc/cocker/src/util¡±
 gcc -g -fPIC -O2 -Wall -Werror -fno-strict-aliasing -I. -I/usr/include -I/usr/include -std=gnu99  -c list.c
 gcc -g -fPIC -O2 -Wall -Werror -fno-strict-aliasing -I. -I/usr/include -I/usr/include -std=gnu99  -c LOGC.c
 gcc -g -fPIC -O2 -Wall -Werror -fno-strict-aliasing -I. -I/usr/include -I/usr/include -std=gnu99  -c version.c
@@ -325,8 +354,8 @@ rm -f /usr/include/xdocker_in/LOGC.h
 cp -rf LOGC.h /usr/include/xdocker_in/
 rm -f /usr/include/xdocker_in/xdocker_util.h
 cp -rf xdocker_util.h /usr/include/xdocker_in/
-make[2]: Àë¿ªÄ¿Â¼¡°/home/calvin/src/xdocker/src/util¡±
-make[2]: ½øÈëÄ¿Â¼¡°/home/calvin/src/xdocker/src/xdocker¡±
+make[2]: Àë¿ªÄ¿Â¼¡°/home/calvinxdockerocker/src/util¡±
+make[2]: ½øÈëÄ¿Â¼¡°/home/caxdockerrc/coxdockerrc/cocker¡±
 gcc -g -fPIC -O2 -Wall -Werror -fno-strict-aliasing -I. -I/usr/include -I/usr/include -std=gnu99 -I/usr/include/xdocker_in  -c util.c
 gcc -g -fPIC -O2 -Wall -Werror -fno-strict-aliasing -I. -I/usr/include -I/usr/include -std=gnu99 -I/usr/include/xdocker_in  -c main.c
 gcc -g -fPIC -O2 -Wall -Werror -fno-strict-aliasing -I. -I/usr/include -I/usr/include -std=gnu99 -I/usr/include/xdocker_in  -c env.c
@@ -354,8 +383,8 @@ gcc -g -fPIC -O2 -Wall -Werror -fno-strict-aliasing -I. -I/usr/include -I/usr/in
 gcc -g -fPIC -O2 -Wall -Werror -fno-strict-aliasing -o xdocker util.o main.o env.o show_images.o show_containers.o action_create.o action_destroy.o action_boot.o action_shutdown.o action_version.o action_vip.o action_port_mapping.o action_volume.o action_attach.o action_install_test.o action_to_container.o action_to_image.o action_copy_image.o action_del_image.o action_export.o action_import.o show_ssearch.o action_spush.o action_spull.o -L. -L/lib64 -L/usr/lib64 -L/usr/lib -L/lib64 -lxdocker_util -lcrypto 
 rm -f /bin/xdocker
 cp -rf xdocker /bin/
-make[2]: Àë¿ªÄ¿Â¼¡°/home/calvin/src/xdocker/src/xdocker¡±
-make[2]: ½øÈëÄ¿Â¼¡°/home/calvin/src/xdocker/src/xdockerinit¡±
+make[2]: Àë¿ªÄ¿Â¼¡°/home/calvinxdockerockerxdockerocker¡±
+make[2]: ½øÈëÄ¿Â¼¡°/home/caxdockerrc/coxdockerrc/cockerinit¡±
 gcc -g -fPIC -O2 -Wall -Werror -fno-strict-aliasing -I. -I/usr/include -I/usr/include -std=gnu99 -I/usr/include/xdocker_in  -c main.c
 gcc -g -fPIC -O2 -Wall -Werror -fno-strict-aliasing -I. -I/usr/include -I/usr/include -std=gnu99 -I/usr/include/xdocker_in  -c server.c
 gcc -g -fPIC -O2 -Wall -Werror -fno-strict-aliasing -I. -I/usr/include -I/usr/include -std=gnu99 -I/usr/include/xdocker_in  -c pty.c
@@ -363,9 +392,9 @@ gcc -g -fPIC -O2 -Wall -Werror -fno-strict-aliasing -I. -I/usr/include -I/usr/in
 gcc -g -fPIC -O2 -Wall -Werror -fno-strict-aliasing -o xdockerinit main.o server.o pty.o pts_and_tcp_bridge.o -L. -L/lib64 -L/usr/lib64 -L/usr/lib -L/lib64 -lxdocker_util -lcrypto 
 rm -f /bin/xdockerinit
 cp -rf xdockerinit /bin/
-make[2]: Àë¿ªÄ¿Â¼¡°/home/calvin/src/xdocker/src/xdockerinit¡±
-make[1]: Àë¿ªÄ¿Â¼¡°/home/calvin/src/xdocker/src¡±
-make[1]: ½øÈëÄ¿Â¼¡°/home/calvin/src/xdocker/shbin¡±
+make[2]: Àë¿ªÄ¿Â¼¡°/home/calvinxdockerockerxdockerockerinit¡±
+make[1]: Àë¿ªÄ¿Â¼¡°/home/calvinxdockerocker/src¡±
+make[1]: ½øÈëÄ¿Â¼¡°/home/caxdockerrc/cocker/shbin¡±
 rm -f /bin/xdocker_ldd_and_cp_lib64.sh
 cp -rf xdocker_ldd_and_cp_lib64.sh /bin/
 rm -f /bin/xdocker_profile_template.sh
@@ -378,20 +407,20 @@ rm -f /bin/xdocker_create_image_rhel-7.4-x86_64.sh
 cp -rf xdocker_create_image_rhel-7.4-x86_64.sh /bin/
 rm -f /bin/xdocker_create_image_rhel-7.4-gcc-x86_64.sh
 cp -rf xdocker_create_image_rhel-7.4-gcc-x86_64.sh /bin/
-make[1]: Àë¿ªÄ¿Â¼¡°/home/calvin/src/xdocker/shbin¡±
+make[1]: Àë¿ªÄ¿Â¼¡°/home/calvinxdockerocker/shbin¡±
 ```
 
 Èç¹ûÃ»ÓĞ·¢Éú´íÎóÔò±íÃ÷±àÒë°²×°³É¹¦£¬´ÓÒÔÉÏÃüÁîĞĞ»ñÖª£º
 
-* ¹¹½¨³ö¿ª·¢ÄÚ²¿Ê¹ÓÃÍ·ÎÄ¼ş`src/xdocker/*.h`°²×°µ½`/usr/include/xdocker_in`£¬¿âÎÄ¼ş`libxdocker_util.so`°²×°µ½`/lib64`¡£¿ª·¢ÄÚ²¿ÎÄ¼ş½öÓÃÓÚ±àÒë¡£
-* ¹¹½¨³ö¿ÉÖ´ĞĞÎÄ¼ş`xdocker`¡¢`xdockerinit`°²×°µ½`/bin`¡£
+* ¹¹½¨³ö¿ª·¢ÄÚ²¿Ê¹ÓÃÍ·xdocker/cocker/*.h`xdockersr/includexdockerr_in`£¬¿âÎÄ¼ş`libcocker_util.so`°²×°µ½`/lib64`¡£¿ª·¢ÄÚ²¿ÎÄ¼ş½öÓÃÓÚ±àÒë¡£
+* ¹¹½¨³ö¿ÉÖ´ĞĞxdockerkerxdockerkerinit`°²×°µ½`/bin`¡£
 * ×Ô´ø½Å±¾`shbin/*.sh`°²×°µ½`/bin`¡£
 
 # 3. Ê¹ÓÃ½Ì³Ì
 
 ## 3.1. xdockerÖ¸Áî
 
-²»´øÑ¡ÏîÖ´ĞĞ`xdocker`½«µÃµ½ËùÓĞÖ¸ÁîºÍÑ¡ÏîÁĞ±í
+²»´øÑ¡ÏîÖ´xdockerer`½«µÃµ½ËùÓĞÖ¸ÁîºÍÑ¡ÏîÁĞ±í
 
 ```
 # xdocker
@@ -421,17 +450,17 @@ cgroup options : [ --cpus [(cpu_num,...)|(cpu_num-cpu_num2)] ] [ --cpu-quota (pe
   enable debug : [ (-d|--debug) ]
 ```
 
-×¢Òâ£ºÊ×´ÎÖ´ĞĞ`xdocker`»á×Ô¶¯´´½¨¾µÏñÖ÷Ä¿Â¼`images`¡¢ÈİÆ÷Ö÷Ä¿Â¼`containers`¡£
+×¢Òâ£ºÊ×´ÎÖ´xdockerer`»á×Ô¶¯´´½¨¾µÏñÖ÷Ä¿Â¼`images`¡¢ÈİÆ÷Ö÷Ä¿Â¼`containers`¡£
 
 ### 3.1.1. ¶îÍâ¸½¼ÓÑ¡Ïî
 
-`xdocker`Ñ¡Ïî`-d`ÓÃÓÚÊä³öÖ´ĞĞÊ±µ÷ÊÔĞÅÏ¢£¬µ«²¢²»ÊÇËùÓĞµ÷ÊÔĞÅÏ¢¶¼»áÊä³öÔÚÆÁÄ»ÉÏ£¬Ä³Ğ©²»·½±ãÊä³öÆÁÄ»µÄĞÅÏ¢»á¼ÇÂ¼µ½ÈÕÖ¾ÎÄ¼şÖĞ`xdocker.log`£¬Êä³öµ½ÆÁÄ»ÉÏµÄĞÅÏ¢Ò²»á¸´ÖÆÒ»·İµ½ÈÕÖ¾ÎÄ¼şÖĞ¡£
+`xdocker`Ñ¡Ïî`-d`ÓÃÓÚÊä³öÖ´ĞĞÊ±µ÷ÊÔĞÅÏ¢£¬µ«²¢²»ÊÇËùÓĞµ÷ÊÔĞÅÏ¢¶¼»áÊä³öÔÚÆÁÄ»ÉÏ£¬Ä³Ğ©²»·½±ãxdockerÏ¢»á¼ÇÂ¼µ½ÈÕÖ¾ÎÄ¼şÖĞ`cocker.log`£¬Êä³öµ½ÆÁÄ»ÉÏµÄĞÅÏ¢Ò²»á¸´ÖÆÒ»·İµ½ÈÕÖ¾ÎÄ¼şÖĞ¡£
 
 `xdocker`Ñ¡Ïî`-f`ÓÃÓÚÇ¿ÖÆÖ´ĞĞ¶øºöÂÔÒ»Ğ©±¨´í£¬ÕâÔÚÒ»Ğ©Ö¸ÁîÖĞºÜÓĞÓÃ¡£
 
 ### 3.1.2. ²éÑ¯¾µÏñÁĞ±í
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-s images`²éÑ¯¾µÏñÖ÷Ä¿Â¼ÀïµÄËùÓĞ¾µÏñ¡£
+Ê¹ÓÃxdockerr`Ö¸Áî`-s images`²éÑ¯¾µÏñÖ÷Ä¿Â¼ÀïµÄËùÓĞ¾µÏñ¡£
 
 ```
 # xdocker -s images
@@ -463,14 +492,14 @@ test                           1.1.0      2018-11-14T07:20:17 24 MB
 
 ### 3.1.3. ÓÉ¾µÏñ´´½¨ÈİÆ÷
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a create`ÓÉÒ»¸ö»ò¶à¸ö¾µÏñµş¼Ó´´½¨ÈİÆ÷¡£
+Ê¹ÓÃxdockerr`Ö¸Áî`-a create`ÓÉÒ»¸ö»ò¶à¸ö¾µÏñµş¼Ó´´½¨ÈİÆ÷¡£
 
 ```
 # xdocker -a create -m test --host test --net BRIDGE --vip 166.88.0.2 --port-mapping 19527:9527 -c test
 OK
 ```
 
-`-m (¾µÏñÁĞ±í)`:Ö¸¶¨¾µÏñÁĞ±í£¬¾µÏñÃû¿ÉÒÔÒÔ`(¾µÏñÃû)(:°æ±¾ºÅ)`¸ñÊ½Ö¸¶¨°æ±¾ºÅ£¬±¾Ö¸ÁîÖĞÔÊĞí²»Ö¸¶¨°æ±¾ºÅ£¬`xdocker`»á×Ô¶¯ÌôÑ¡Ò»¸ö×î´ó°æ±¾ºÅµÄ¾µÏñ¡£¶à¸ö¾µÏñÖ®¼äÓÃ`,`·Ö¸ô¡£
+`-m (¾µÏñÁĞ±í)`:Ö¸¶¨¾µÏñÁĞ±í£¬¾µÏñÃû¿ÉÒÔÒÔ`(¾µÏñÃû)(:°æ±¾ºÅ)`¸ñÊ½Ö¸¶¨°æxdockerÖĞÔÊĞí²»Ö¸¶¨°æ±¾ºÅ£¬`cocker`»á×Ô¶¯ÌôÑ¡Ò»¸ö×î´ó°æ±¾ºÅµÄ¾µÏñ¡£¶à¸ö¾µÏñÖ®¼äÓÃ`,`·Ö¸ô¡£
 
 `--host (Ö÷»úÃû)`:ÉèÖÃÈİÆ÷ÄÚµÄÖ÷»úÃû¡£
 
@@ -492,7 +521,7 @@ OK
 
 ### 3.1.4. ²éÑ¯ÈİÆ÷ÁĞ±í
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-s containers`²éÑ¯ÈİÆ÷Ö÷Ä¿Â¼ÖĞµÄËùÓĞÈİÆ÷ÒÔ¼°×´Ì¬¡£
+Ê¹ÓÃxdockerr`Ö¸Áî`-s containers`²éÑ¯ÈİÆ÷Ö÷Ä¿Â¼ÖĞµÄËùÓĞÈİÆ÷ÒÔ¼°×´Ì¬¡£
 
 ```
 # xdocker -s containers
@@ -505,7 +534,7 @@ test                 test                 test       BRIDGE     nns098F6BCD46   
 
 ### 3.1.5. Æô¶¯ÈİÆ÷
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a boot`²éÑ¯ÈİÆ÷Ö÷Ä¿Â¼ÖĞµÄËùÓĞÈİÆ÷ÒÔ¼°×´Ì¬¡£
+Ê¹ÓÃxdockerr`Ö¸Áî`-a boot`²éÑ¯ÈİÆ÷Ö÷Ä¿Â¼ÖĞµÄËùÓĞÈİÆ÷ÒÔ¼°×´Ì¬¡£
 
 ```
 # xdocker -a boot -c test
@@ -522,7 +551,7 @@ OK
 
 `-t`:ÈİÆ÷Æô¶¯ºóÁ¢¼´Á¬½Ó¡£
 
-`-e (cmd)`:Ö¸¶¨ÈİÆ÷¸ù½ø³Ì£¬Ä¬ÈÏÊ¹ÓÃ`xdocker`×Ô´øµÄ`xdockerinit`¡£
+`-e (cmd)`:Ö¸¶¨ÈİÆ÷¸ù½ø³Ì£¬Ä¬xdockerckerxdockerockerinit`¡£
 
 Æô¶¯ºóÔÙ²é¿´ÈİÆ÷×´Ì¬
 
@@ -533,11 +562,11 @@ container_id         image                hostname   net        netns           
 test                 test                 test       BRIDGE     nns098F6BCD46    0 B        RUNNING(89698)
 ```
 
-×¢Òâ£ºÄ¬ÈÏÆô¶¯ÈİÆ÷µÄ¸ù½ø³ÌÎª`xdockerinit`£¬¿É¼òµ¥´úÌæÏµÍ³`init`½ø³Ì»ØÊÕ¹Â¶ù½ø³Ì¡¢¹ÜÀíÎ±ÖÕ¶ËµÈ¹¦ÄÜ¡£
+×¢Òâ£ºÄ¬ÈÏÆô¶¯ÈİÆ÷µÄ¸ùxdockerckerinit`£¬¿É¼òµ¥´úÌæÏµÍ³`init`½ø³Ì»ØÊÕ¹Â¶ù½ø³Ì¡¢¹ÜÀíÎ±ÖÕ¶ËµÈ¹¦ÄÜ¡£
 
 ### 3.1.6. Á¬½ÓÈİÆ÷
 
-Èç¹ûÊ¹ÓÃ`xdockerinit`×÷Îª¸ù½ø³ÌÆô¶¯ÈİÆ÷£¬Ê¹ÓÃ`xdocker`Ö¸Áî`-a attch`Á¬½ÓÖÁÈİÆ÷£¬`xdockerinit`´ò¿ªÒ»¸ö»á»°Á¬½Óµ½ÈİÆ÷ÖĞµÄÎ±ÖÕ¶Ë¡£Ò²¿Éµş¼Óssh¾µÏñÔÚÈİÆ÷ÄÚÆô¶¯ssh·şÎñÆ÷£¬ÀûÓÃsshÁ¬½ÓÖÁÈİÆ÷¡£
+Èç¹ûÊ¹xdockererinit`×÷Îª¸ù½ø³ÌÆô¶¯ÈİÆ÷£¬Ê¹ÓÃ`xdocker`Ö¸Áî`-a attxdockerÈİÆ÷£¬`cockerinit`´ò¿ªÒ»¸ö»á»°Á¬½Óµ½ÈİÆ÷ÖĞµÄÎ±ÖÕ¶Ë¡£Ò²¿Éµş¼Óssh¾µÏñÔÚÈİÆ÷ÄÚÆô¶¯ssh·şÎñÆ÷£¬ÀûÓÃsshÁ¬½ÓÖÁÈİÆ÷¡£
 
 ```
 # xdocker -a attach -c test   
@@ -559,7 +588,7 @@ logout
 
 ### 3.1.7. Í£Ö¹ÈİÆ÷
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a shutdown`Í£Ö¹ÈİÆ÷¡£
+Ê¹ÓÃxdockerr`Ö¸Áî`-a shutdown`Í£Ö¹ÈİÆ÷¡£
 
 ```
 # xdocker -a shutdown -c test   
@@ -575,11 +604,11 @@ test                 test                 test       BRIDGE     nns098F6BCD46   
 
 ### 3.1.8. É±ËÀÈİÆ÷
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a kill`Ç¿É±ÈİÆ÷¡£
+Ê¹ÓÃxdockerr`Ö¸Áî`-a kill`Ç¿É±ÈİÆ÷¡£
 
 ### 3.1.9. Ïú»ÙÈİÆ÷
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a destroy`Ïú»ÙÈİÆ÷¡£
+Ê¹ÓÃxdockerr`Ö¸Áî`-a destroy`Ïú»ÙÈİÆ÷¡£
 
 ×¢Òâ£ºÏú»ÙÈİÆ÷ºóÈİÆ÷ÄÚËùÓĞĞŞ¸Ä½«¶ªÊ§¡£
 
@@ -598,7 +627,7 @@ OK
 
 #### 3.1.10.1. ĞŞ¸Ä°æ±¾ºÅ
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a version`ĞŞ¸Ä¾µÏñ°æ±¾ºÅ¡£
+Ê¹ÓÃxdockerr`Ö¸Áî`-a version`ĞŞ¸Ä¾µÏñ°æ±¾ºÅ¡£
 
 ```
 # xdocker -s images
@@ -629,7 +658,7 @@ test                           _          2018-11-10T09:21:12 24 MB
 
 #### 3.1.11.1. ĞŞ¸ÄVIP
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a vip`ĞŞ¸ÄÈİÆ÷ÄÚÍø¿¨IP¡£
+Ê¹ÓÃxdockerr`Ö¸Áî`-a vip`ĞŞ¸ÄÈİÆ÷ÄÚÍø¿¨IP¡£
 
 ×¢Òâ£º±ØĞëÈİÆ÷Í£Ö¹ºó²ÅÄÜĞŞ¸Ä¡£
 
@@ -640,7 +669,7 @@ OK
 
 #### 3.1.11.2. ĞŞ¸ÄÈİÆ÷¶Ë¿ÚÓ³Éä
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a port_mapping`ĞŞ¸ÄÈİÆ÷ÍøÂç¶Ë¿ÚÓ³Éä¡£
+Ê¹ÓÃxdockerr`Ö¸Áî`-a port_mapping`ĞŞ¸ÄÈİÆ÷ÍøÂç¶Ë¿ÚÓ³Éä¡£
 
 ×¢Òâ£º±ØĞëÈİÆ÷Í£Ö¹ºó²ÅÄÜĞŞ¸Ä¡£
 
@@ -651,7 +680,7 @@ OK
 
 #### 3.1.11.3. ĞŞ¸ÄÍâ¹Ò¾íÓ³Éä
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a volume`ĞŞ¸ÄÈİÆ÷´ÅÅÌ¾íÓ³Éä¡£
+Ê¹ÓÃxdockerr`Ö¸Áî`-a volume`ĞŞ¸ÄÈİÆ÷´ÅÅÌ¾íÓ³Éä¡£
 
 ×¢Òâ£º±ØĞëÈİÆ÷Í£Ö¹ºó²ÅÄÜĞŞ¸Ä¡£
 
@@ -664,7 +693,7 @@ OK
 
 µ±ĞèÒªĞŞ¸Ä¾µÏñÄÚÎÄ¼şÊ±¿ÉÏÈ°Ñ¾µÏñ×ª»»ÎªÈİÆ÷£¬ĞŞ¸ÄÍêºó×ª»»»Ø¾µÏñ¡£
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a to_container`×ª»»Ö¸¶¨¾µÏñÎªÈİÆ÷¡£
+Ê¹ÓÃxdockerr`Ö¸Áî`-a to_container`×ª»»Ö¸¶¨¾µÏñÎªÈİÆ÷¡£
 
 ```
 # xdocker -a to_container --from-image test --host test --net BRIDGE --vip 166.88.0.2 --port-mapping 19527:9527 --to-container test
@@ -677,7 +706,7 @@ OK
 
 µ±Ïë°ÑÄ³Ò»ÈİÆ÷´ò°ü³É¾µÏñ£¬¿ÉÊ¹ÓÃ´ËÖ¸Áî¡£
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a to_image`×ª»»Ö¸¶¨ÈİÆ÷Îª¾µÏñ¡£
+Ê¹ÓÃxdockerr`Ö¸Áî`-a to_image`×ª»»Ö¸¶¨ÈİÆ÷Îª¾µÏñ¡£
 
 ×¢Òâ£º×ª»»µÄÈİÆ÷±ØĞëÊÇÍ£Ö¹µÄ¡£
 
@@ -688,7 +717,7 @@ OK
 
 ### 3.1.14. ¸´ÖÆ¾µÏñ
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a copy_image`¿É¸´ÖÆ¾µÏñ¡£
+Ê¹ÓÃxdockerr`Ö¸Áî`-a copy_image`¿É¸´ÖÆ¾µÏñ¡£
 
 ```
 # xdocker -a copy_image --from-image test --to-image "test2:1.0.0"
@@ -697,7 +726,7 @@ OK
 
 ### 3.1.15. É¾³ı¾µÏñ
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a del_image`¿ÉÉ¾³ı¾µÏñ¡£
+Ê¹ÓÃxdockerr`Ö¸Áî`-a del_image`¿ÉÉ¾³ı¾µÏñ¡£
 
 ```
 # xdocker -a del_image -m "test2:1.0.0"   
@@ -706,7 +735,7 @@ OK
 
 ### 3.1.16. µ¼³ö¾µÏñ
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a export`¿Éµ¼³ö¾µÏñÎª¾µÏñ´ò°üÎÄ¼ş¡£
+Ê¹ÓÃxdockerr`Ö¸Áî`-a export`¿Éµ¼³ö¾µÏñÎª¾µÏñ´ò°üÎÄ¼ş¡£
 
 ```
 # xdocker -a export -m "test:1.1.0"   
@@ -715,9 +744,9 @@ OK
 
 ### 3.1.17. µ¼Èë¾µÏñ
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a import`¿É´Ó¾µÏñ´ò°üÎÄ¼şµ¼Èë¾µÏñ¿â¡£
+Ê¹ÓÃxdockerr`Ö¸Áî`-a import`¿É´Ó¾µÏñ´ò°üÎÄ¼şµ¼Èë¾µÏñ¿â¡£
 
-×¢Òâ£º¾µÏñ´ò°üÎÄ¼şÃûÀ©Õ¹Ãû±ØĞëÊÇ`.xdockerimage`¡£
+×¢Òâ£º¾µÏñ´ò°üÎÄ¼şÃûÀ©Õ¹xdockercockerimage`¡£
 
 ```
 # xdocker -a del_image -m "test:1.1.0"
@@ -740,14 +769,14 @@ ssh¾µÏñ¿âÊÇÀûÓÃssh·şÎñÆ÷À´´î½¨¾µÏñ¿â¡£Ê×ÏÈ°²×°ssh·şÎñÆ÷£¬´´½¨¾µÏñ¿âÓÃ»§£¬´Ó¿Í»§¶
 # ssh-copy-id -i ~/.ssh/id_rsa.pub xdockerimages@192.168.6.74
 ```
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-s ssearch`¿É²é¿´ssh¾µÏñ¿âÀïµÄ¾µÏñÁĞ±í¡£
+Ê¹ÓÃxdockerr`Ö¸Áî`-s ssearch`¿É²é¿´ssh¾µÏñ¿âÀïµÄ¾µÏñÁĞ±í¡£
 
 ```
 # xdocker -s ssearch --srepo "xdockerimages@192.168.6.74"
 OK
 ```
 
-×¢Òâ£º`xdocker`±£´æssh¾µÏñ¿âµØÖ·ÅäÖÃ`xdockerimages@192.168.6.74`¡£
+×¢Òâ£ºxdockerr`±£´æssh¾µÏñ¿âµØÖ·xdockerkerimages@192.168.6.74`¡£
 
 »¹ÄÜ¼ÓÉÏ×Ó´®Í¨ÅäÑ¡Ïî`--match`¡£
 
@@ -755,7 +784,7 @@ OK
 # xdocker -s ssearch --match test
 ```
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a spush`ÉÏ´«¾µÏñµ½ssh¾µÏñ¿â¡£
+Ê¹ÓÃxdockerr`Ö¸Áî`-a spush`ÉÏ´«¾µÏñµ½ssh¾µÏñ¿â¡£
 
 ```
 # xdocker -a spush -m "test:1.0.0"
@@ -769,7 +798,7 @@ test:1.0.0                                    2018-11-14T9:05:48  11 MB
 
 ### 3.1.19. ´Óssh¾µÏñ¿âÏÂÔØ¾µÏñ
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a spull`´Óssh¾µÏñ¿âÏÂÔØ¾µÏñ¡£
+Ê¹ÓÃxdockerr`Ö¸Áî`-a spull`´Óssh¾µÏñ¿âÏÂÔØ¾µÏñ¡£
 
 ```
 # 
@@ -783,7 +812,7 @@ image_id                       version    modify_datetime     size
 test                           1.0.0      2018-11-14T09:09:04 24 MB
 ```
 
-### 3.1.20. ÉÏ´«¾µÏñµ½xdocker×ÔÓĞ¾µÏñ¿â
+### 3.1.20. ÉÏ´«¾µÏñxdockerr×ÔÓĞ¾µÏñ¿â
 
 £¨´ıÑĞ·¢£©
 
@@ -793,7 +822,7 @@ test                           1.0.0      2018-11-14T09:09:04 24 MB
 
 ### 3.1.22. ÔÚÈİÆ÷ÍâÖ´ĞĞÈİÆ÷ÄÚÃüÁî
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a run`ÔÚÈİÆ÷ÍâÖ´ĞĞÈİÆ÷ÄÚÃüÁî
+Ê¹ÓÃxdockerr`Ö¸Áî`-a run`ÔÚÈİÆ÷ÍâÖ´ĞĞÈİÆ÷ÄÚÃüÁî
 
 ```
 # xdocker -a run -c test --cmd "hostname"
@@ -805,7 +834,7 @@ test
 
 ### 3.1.23. Ìæ»»ÈİÆ÷ÄÚÎÄ¼şÄÚÈİ
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a rplfile`Ìæ»»ÈİÆ÷ÄÚÎÄ¼şÄÚÈİ
+Ê¹ÓÃxdockerr`Ö¸Áî`-a rplfile`Ìæ»»ÈİÆ÷ÄÚÎÄ¼şÄÚÈİ
 
 ```
 # xdocker -a rplfile -c test --template-file "/root/tpl.txt" --mapping-file "map.txt" --instance-file "/root/ins.txt"
@@ -845,7 +874,7 @@ ${LEAF} ÎÒµÄÊ÷Ò¶
 
 ### 3.1.24. ¸´ÖÆÈİÆ÷ÍâÎÄ¼ş»òÄ¿Â¼µ½ÈİÆ÷ÄÚ
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a putfile`¸´ÖÆÈİÆ÷ÍâÎÄ¼ş»òÄ¿Â¼µ½ÈİÆ÷ÄÚ
+Ê¹ÓÃxdockerr`Ö¸Áî`-a putfile`¸´ÖÆÈİÆ÷ÍâÎÄ¼ş»òÄ¿Â¼µ½ÈİÆ÷ÄÚ
 
 ```
 # xdocker -a putfile -c test --src-file "map.txt" --dst-file "/root/"
@@ -857,7 +886,7 @@ OK
 
 ### 3.1.25. ¸´ÖÆÈİÆ÷ÄÚÎÄ¼ş»òÄ¿Â¼µ½ÈİÆ÷Íâ
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-a getfile`¸´ÖÆÈİÆ÷ÄÚÎÄ¼ş»òÄ¿Â¼µ½ÈİÆ÷Íâ
+Ê¹ÓÃxdockerr`Ö¸Áî`-a getfile`¸´ÖÆÈİÆ÷ÄÚÎÄ¼ş»òÄ¿Â¼µ½ÈİÆ÷Íâ
 
 ```
 # xdocker -a getfile -c test --src-file "/root/map.txt" --dst-file "./"
@@ -869,7 +898,7 @@ OK
 
 ### 3.1.26. µÃµ½ÈİÆ÷¸ùÄ¿Â¼ÔÚÈİÆ÷ÍâÂ·¾¶
 
-Ê¹ÓÃ`xdocker`Ö¸Áî`-s container_root`µÃµ½ÈİÆ÷¸ùÄ¿Â¼ÔÚÈİÆ÷ÍâÂ·¾¶
+Ê¹ÓÃxdockerr`Ö¸Áî`-s container_root`µÃµ½ÈİÆ÷¸ùÄ¿Â¼ÔÚÈİÆ÷ÍâÂ·¾¶
 
 ```
 # xdocker -s container_root -c test
@@ -887,7 +916,7 @@ OK
 # xdocker_install_test.sh
 ```
 
-×¢Òâ£ºÓ¦Óë`xdocker`Ö¸Áî`-a install_test`ÅäºÏÊ¹ÓÃ¡£
+×¢Òâ£ºÓ¦Óëxdockerr`Ö¸Áî`-a install_test`ÅäºÏÊ¹ÓÃ¡£
 
 ### 3.2.2. ´´½¨²Ù×÷ÏµÍ³»ù´¡¾µÏñ½Å±¾
 
@@ -901,7 +930,7 @@ OK
 -rw-r--r--  1 root root 91781857 Nov 25 09:03 calvin=rhel-7.4-x86_64:1.0.0.xdockerimage
 ```
 
-Ö´ĞĞºóÊäÈëÃû×ÖºÍ°æ±¾ºÅ£¬×Ô¶¯Éú³É¿Éµ¼ÈëµÄ¾µÏñ´ò°üÎÄ¼ş£¬ÎÄ¼şÃû¸ñÊ½Îª`(×÷Õß)=(rhel-7.4-x86_64):(°æ±¾ºÅ).xdockerimage`
+Ö´ĞĞºóÊäÈëÃû×ÖºÍ°æ±¾ºÅ£¬×Ô¶¯Éú³É¿Éµ¼ÈëµÄ¾µÏñ´ò°üÎÄ¼ş£¬ÎÄ¼şÃû¸ñÊ½Îª`(×÷Õßxdockerl-7.4-x86_64):(°æ±¾ºÅ).cockerimage`
 
 ```
 # xdocker -a import --image-file calvin=rhel-7.4-x86_64:1.0.0.xdockerimage
@@ -936,9 +965,9 @@ calvin=rhel-7.4-x86_64         1.0.0      2018-11-25T09:03:48 228 MB
 
 ```
 # . xdocker_container_root.sh test
-$ echo $xdocker_CONTAINER_ROOT
+$ echo $XDOCKER_CONTAINER_ROOT
 /var/xdocker/containers/test/merged
-# ls -l $xdocker_CONTAINER_ROOT
+# ls -l $XDOCKER_CONTAINER_ROOT
 total 20
 drwxr-xr-x.   2 root root 4096 Nov 22 08:26 bin
 -rwxr-xr-x.   1 root root 2634 Nov 22 08:43 xdocker.log
@@ -1238,9 +1267,9 @@ OK
 
 ## 4.1. ¹ØÓÚxdocker
 
-»¶Ó­Ê¹ÓÃxdocker£¬Èç¹ûÄãÊ¹ÓÃÖĞÅöµ½ÁËÎÊÌâÇë¸æËßÎÒ£¬Ğ»Ğ» ^_^
+»¶Ó­Ê¹xdockerr£¬Èç¹ûÄãÊ¹ÓÃÖĞÅöµ½ÁËÎÊÌâÇë¸æËßÎÒ£¬Ğ»Ğ» ^_^
 
-Ô´ÂëÍĞ¹ÜµØÖ· : [¿ªÔ´ÖĞ¹ú](https://gitee.com/calvinwilliams/xdocker)¡¢[github](https://github.com/calvinwilliams/xdocker)
+Ô´ÂëÍĞ¹ÜµØÖ· : [¿ªÔ´ÖĞ¹ú](https://gitee.com/calxdockerliams/cocker)¡¢[github](https://github.com/xdockerwilliams/cocker)
 
 ## 4.2. ¹ØÓÚ×÷Õß
 

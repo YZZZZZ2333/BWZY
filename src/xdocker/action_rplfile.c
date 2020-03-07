@@ -1,6 +1,8 @@
+
 #include "xdocker_in.h"
 
-int DoAction_rplfile( struct xdockerEnvironment *env ) {
+int DoAction_rplfile( struct CockerEnvironment *env )
+{
 	char		template_file[ PATH_MAX + 1 ] ;
 	char		instance_file[ PATH_MAX + 1 ] ;
 	
@@ -18,15 +20,18 @@ int DoAction_rplfile( struct xdockerEnvironment *env ) {
 	nret = access( template_file , F_OK ) ;
 	INTER1( "*** ERROR : template file '%s' not found\n" , template_file )
 	
-	if( env->cmd_para.__instance_file ) {
+	if( env->cmd_para.__instance_file )
+	{
 		Snprintf( instance_file , sizeof(instance_file)-1 , "%s/merged%s" , env->container_path_base , env->cmd_para.__instance_file );
 	}
-	else {
+	else
+	{
 		strncpy( instance_file , template_file , sizeof(instance_file)-1 );
 	}
 	
 	/* replace file */
-	if( env->cmd_para.__debug ) {
+	if( env->cmd_para.__debug )
+	{
 		I( "filerpl [%s] [%s] [%s]\n" , template_file , env->cmd_para.__mapping_file , instance_file )
 	}
 	nret = filerpl( template_file , env->cmd_para.__mapping_file , instance_file ) ;

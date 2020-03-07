@@ -1,6 +1,8 @@
+
 #include "xdocker_in.h"
 
-int DoAction_del_image( struct xdockerEnvironment *env ) {
+int DoAction_del_image( struct CockerEnvironment *env )
+{
 	char		image[ IMAGES_ID_LEN_MAX + 1 ] ;
 	char		version[ PATH_MAX + 1 ] ;
 	char		version_path_base[ PATH_MAX + 1 ] ;
@@ -30,7 +32,8 @@ int DoAction_del_image( struct xdockerEnvironment *env ) {
 	INTER1( "*** ERROR : SnprintfAndSystem [rm -rf %s] failed[%d] , errno[%d]\n" , image_path_base , nret , errno )
 	EIDTI( "system [%s] ok\n" , cmd )
 	
-	if( IsDirectoryEmpty( version_path_base ) == 0 ) {
+	if( IsDirectoryEmpty( version_path_base ) == 0 )
+	{
 		nret = SnprintfAndSystem( cmd , sizeof(cmd) , "rmdir %s" , version_path_base ) ;
 		INTER1( "*** ERROR : SnprintfAndSystem [rmdir %s] failed[%d] , errno[%d]\n" , version_path_base , nret , errno )
 		EIDTI( "system [%s] ok\n" , cmd )
