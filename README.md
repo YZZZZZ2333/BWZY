@@ -212,7 +212,7 @@ yum install -y openssl-devel
 
 ```
 # git clone https://github.com/YZZZZZ2333/BWZY
-# cd xdocker
+# cd BWZY
 ```
 
 ### 2.1.4. 编译安装
