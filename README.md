@@ -1253,17 +1253,3 @@ OK
 # xdocker -a destroy -c G6 -h
 OK
 ```
-
-# 4. 最后
-
-## 4.1. 关于xdocker
-
-欢迎使用xdocker，如果你使用中碰到了问题请告诉我，谢谢 ^_^
-
-源码托管地址 : [开源中国](https://gitee.com/BWZYwilliams/xdocker)、[github](https://github.com/BWZYwilliams/xdocker)
-
-## 4.2. 关于作者
-
-厉华，主手C，写过小到性能卓越方便快捷的日志库、HTTP解析器、日志采集器等，大到交易平台/中间件等，分布式系统实践者，容器技术专研者，目前在某城商行负责基础架构。
-
-通过邮箱联系我 : [网易](mailto:BWZYwilliams@163.com)、[Gmail](mailto:BWZYwilliams.c@gmail.com)
