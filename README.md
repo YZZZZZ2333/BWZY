@@ -12,7 +12,7 @@ CentOS 7 管理员权限
 
 ## 2.1安装依赖
 
-sudo yum install telnet nmap-ncat bridge-utils man-pages supermin5 openssl-devel	
+    sudo yum install telnet nmap-ncat bridge-utils man-pages supermin5 openssl-devel	
 
 ## 2.2 开启内核转发
 此步骤需切换至root账户
