@@ -5,30 +5,40 @@ XDocker使用方法
 用户名：test
 密码：BWZYtest
 
-1、	系统需求
-CentOS 7 管理员权限
-2、安装
-2.1安装依赖
-sudo yum install telnet nmap-ncat bridge-utils man-pages supermin5 openssl-devel	
-	2.2 开启内核转发
+#1、系统需求
+    CentOS 7 管理员权限
+#2、安装
+    ##2.1安装依赖
+    ```
+        sudo yum install telnet nmap-ncat bridge-utils man-pages supermin5 openssl-devel	
+    ```
+	##2.2 开启内核转发
 		此步骤需切换至root账户
+        ```
 		echo "net.ipv4.ip_forward=1" >>/etc/sysctl.conf
-sysctl -p
+        sysctl -p
+        ```
  	
-	2.3 下载源代码
+	##2.3 下载源代码
+    ```
 		git clone https://github.com/YZZZZZ2333/BWZY
 		cd BWZY
-	
-	2.4 编译安装
+	```
+
+	##2.4 编译安装
+    ```
 		sudo make -f makefile.Linux clean
+        ```
         ![images/clean.png](images/clean.png)
-		
+		```
 		sudo make -f makefile.Linux install
+        ```
         ![images/install.png](images/install.png)
 		若未出现报错信息则为安装成功
 
-3、	使用
+#3、	使用
 输入sudo xdocker可查看简易使用说明
+```
 使用方法 : xdocker -v
 查询镜像列表：  -s images
 查询容器列表：  -s containers
@@ -55,8 +65,10 @@ sysctl -p
 create options : [ --volume (host_path:container_path) ][ --volume ... ] [ --host (hostname) ] [ --net (BRIDGE|HOST|CUSTOM) ] [ --host-eth (eth) ] [ --vip (ip) ] [ --port-mapping (src_port:dst_port) ]
 cgroup options : [ --cpus [(cpu_num,...)|(cpu_num-cpu_num2)] ] [ --cpu-quota (percent%) ] [ --mem-limit (num|numM) ]
   enable debug : [ (-d|--debug) ]
+```
 
-3.1 安装、运行、停止、卸载测试镜像
+#3.1 安装、运行、停止、卸载测试镜像
+```
 # sudo xdocker -a install_test
 完成
 # sudo xdocker -s images
@@ -75,6 +87,6 @@ logout
 完成
 # sudo xdocker -a destroy -c test
 完成
-
-3.2 现有可用镜像
+```
+#3.2 现有可用镜像
     ![images/image.png](images/image.png)
