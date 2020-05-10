@@ -136,7 +136,7 @@ int DoShow_images( struct CockerEnvironment *xdocker_env )
 			/* output */
 			if( count == 0 )
 			{
-				printf( "%-30s %-10s %-19s %-10s\n" , "image_id" , "version" , "modify_datetime" , "size" );
+				printf( "%-30s %-10s %-19s %-10s\n" , "镜像ID" , "版本" , "修改时间" , "大小" );
 				printf( "--------------------------------------------------------------------\n" );
 			}
 			

@@ -186,7 +186,7 @@ int DoShow_containers( struct CockerEnvironment *xdocker_env )
 		/* output */
 		if( count == 0 )
 		{
-			printf( "%-20s %-20s %-10s %-10s %-16s %-10s %s\n" , "container_id" , "image" , "hostname" , "net" , "netns" , "size" , "status" );
+			printf( "%-20s %-20s %-10s %-10s %-16s %-10s %s\n" , "容器ID" , "镜像" , "主机名" , "网络类型" , "网络编号" , "大小" , "状态" );
 			printf( "-----------------------------------------------------------------------------------------------------------\n" );
 		}
 		

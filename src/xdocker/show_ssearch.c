@@ -70,7 +70,7 @@ int DoShow_ssearch( struct CockerEnvironment *env )
 		/* output */
 		if( count == 0 )
 		{
-			printf( "%-45s %-19s %-10s\n" , "image_id" , "modify_datetime" , "size" );
+			printf( "%-45s %-19s %-10s\n" , "镜像ID" , "修改时间" , "大小" );
 			printf( "----------------------------------------------------------------------\n" );
 		}
 		
