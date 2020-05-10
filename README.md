@@ -6,13 +6,18 @@ XDocker使用方法
 密码：BWZYtest
 
 #1、系统需求
+
     CentOS 7 管理员权限
 #2、安装
+
     ##2.1安装依赖
+
     ```
         sudo yum install telnet nmap-ncat bridge-utils man-pages supermin5 openssl-devel	
     ```
+
 	##2.2 开启内核转发
+
 		此步骤需切换至root账户
         ```
 		echo "net.ipv4.ip_forward=1" >>/etc/sysctl.conf
@@ -20,12 +25,14 @@ XDocker使用方法
         ```
  	
 	##2.3 下载源代码
+
     ```
 		git clone https://github.com/YZZZZZ2333/BWZY
 		cd BWZY
 	```
 
 	##2.4 编译安装
+
     ```
 		sudo make -f makefile.Linux clean
         ```
@@ -89,4 +96,5 @@ logout
 完成
 ```
 #3.2 现有可用镜像
+
     ![images/image.png](images/image.png)
