@@ -195,7 +195,7 @@ int DoAction_create( struct CockerEnvironment *env )
 		}
 		else
 		{
-			printf( "OK\n" );
+			printf( "完成\n" );
 		}
 	}
 	

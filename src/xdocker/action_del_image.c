@@ -39,7 +39,7 @@ int DoAction_del_image( struct CockerEnvironment *env )
 		EIDTI( "system [%s] ok\n" , cmd )
 	}
 	
-	printf( "OK\n" );
+	printf( "完成\n" );
 	
 	return 0;
 }

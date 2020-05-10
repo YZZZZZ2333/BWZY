@@ -29,7 +29,7 @@ int DoAction_export( struct CockerEnvironment *env )
 	INTER1( "*** ERROR : SnprintfAndSystem [cd %s/rlayer/ && tar --force-local -czf %s * && mv %s %s/] failed[%d] , errno[%d]\n" , env->image_path_base , image_file , image_file , current_path , nret , errno )
 	EIDTI( "system [%s] ok\n" , cmd )
 	
-	printf( "OK\n" );
+	printf( "完成\n" );
 	
 	return 0;
 }

@@ -24,7 +24,7 @@ int DoAction_getfile( struct CockerEnvironment *env )
 	nret = SnprintfAndSystem( cmd , sizeof(cmd) , "cp -rf %s %s" , src_file , env->cmd_para.__dst_file );
 	INTER1( "*** ERROR : system [%s] failed[%d]\\n" , cmd , nret )
 	
-	printf( "OK\n" );
+	printf( "完成\n" );
 	
 	return 0;
 }

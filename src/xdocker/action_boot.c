@@ -839,7 +839,7 @@ int DoAction_boot( struct CockerEnvironment *env )
 			}
 			else
 			{
-				printf( "OK\n" );
+				printf( "完成\n" );
 			}
 			
 			return 0;

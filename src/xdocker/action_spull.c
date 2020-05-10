@@ -67,7 +67,7 @@ int DoAction_spull( struct CockerEnvironment *env )
 	INTER1( "*** ERROR : SnprintfAndSystem [%s] failed[%d] , errno[%d]\n" , cmd , nret , errno )
 	EIDTI( "system [%s] ok\n" , cmd )
 	
-	printf( "OK\n" );
+	printf( "完成\n" );
 	
 	return 0;
 }

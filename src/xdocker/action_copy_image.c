@@ -37,7 +37,7 @@ int DoAction_copy_image( struct CockerEnvironment *env )
 	INTER1( "*** ERROR : SnprintfAndSystem [cp -rf %s %s] failed[%d] , errno[%d]\n" , from_image_path_base , to_image_path_base , nret , errno )
 	EIDTI( "system [%s] ok\n" , cmd )
 	
-	printf( "OK\n" );
+	printf( "完成\n" );
 	
 	return 0;
 }

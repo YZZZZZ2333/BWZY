@@ -71,7 +71,7 @@ int DoAction_shutdown( struct CockerEnvironment *env )
 	
 	nret = _DoAction_kill( env , SIGTERM ) ;
 	if( nret == 0 )
-	I( "OK\n" )
+	I( "完成\n" )
 	
 	return nret;
 }
@@ -82,7 +82,7 @@ int DoAction_kill( struct CockerEnvironment *env )
 	
 	nret = _DoAction_kill( env , SIGKILL ) ;
 	if( nret == 0 )
-	I( "OK\n" )
+	I( "完成\n" )
 	
 	return nret;
 }

@@ -43,7 +43,7 @@ int DoAction_import( struct CockerEnvironment *env )
 	INTER1( "*** ERROR : SnprintfAndSystem [cd %s/rlayer/ && tar --force-local -xzf %s/%s] failed[%d] , errno[%d]\n" , env->image_path_base , current_path , env->cmd_para.__image_file , nret , errno )
 	EIDTI( "system [%s] ok\n" , cmd )
 	
-	printf( "OK\n" );
+	printf( "完成\n" );
 	
 	return 0;
 }

@@ -17,7 +17,7 @@ int DoAction_port_mapping( struct CockerEnvironment *env )
 	INTER1( "*** ERROR : WriteFileLine port_mapping failed[%d] , errno[%d]\n" , nret , errno )
 	EIDTE( "write file [%s] ok\n" , container_port_mapping_file )
 	
-	printf( "OK\n" );
+	printf( "完成\n" );
 	
 	return 0;	
 }

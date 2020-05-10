@@ -37,7 +37,7 @@ int DoAction_rplfile( struct CockerEnvironment *env )
 	nret = filerpl( template_file , env->cmd_para.__mapping_file , instance_file ) ;
 	INTER1( "*** ERROR : filerpl failed[%d]\\n" , nret )
 	
-	printf( "OK\n" );
+	printf( "完成\n" );
 	
 	return 0;
 }
