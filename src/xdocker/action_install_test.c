@@ -31,7 +31,7 @@ int DoAction_install_test( struct CockerEnvironment *env )
 	INTER1( "*** ERROR : SnprintfAndSystem [xdocker_install_test.sh %s] failed[%d] , errno[%d]\n" , env->image_path_base , nret , errno )
 	EIDTI( "system [%s] ok\n" , cmd )
 	
-	printf( "OK\n" );
+	printf( "完成\n" );
 	
 	return 0;
 }
