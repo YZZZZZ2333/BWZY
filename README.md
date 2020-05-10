@@ -80,7 +80,7 @@ cgroup options : [ --cpus [(cpu_num,...)|(cpu_num-cpu_num2)] ] [ --cpu-quota (pe
 # sudo xdocker -a install_test
 完成
 # sudo xdocker -s images
-image_id                       version    modify_datetime     size      
+镜像ID                       版本    修改时间     大小     
 --------------------------------------------------------------------
 test                           _          2020-05-10T09:21:12 24 MB
 # sudo xdocker -a create -m test -c test
