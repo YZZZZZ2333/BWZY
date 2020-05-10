@@ -6,19 +6,18 @@ XDocker使用方法
 密码：BWZYtest
 
 # 1、系统需求
+CentOS 7 管理员权限
 
-    CentOS 7 管理员权限
 # 2、安装
 
 ## 2.1安装依赖
 
-    sudo yum install telnet nmap-ncat bridge-utils man-pages supermin5 openssl-devel	
+sudo yum install telnet nmap-ncat bridge-utils man-pages supermin5 openssl-devel	
 
 ## 2.2 开启内核转发
+此步骤需切换至root账户
 
-	此步骤需切换至root账户
-
-	echo "net.ipv4.ip_forward=1" >>/etc/sysctl.conf
+    echo "net.ipv4.ip_forward=1" >>/etc/sysctl.conf
     sysctl -p
  	
 ## 2.3 下载源代码
@@ -36,11 +35,11 @@ XDocker使用方法
 
 ![images/install.png](images/install.png)
 
-    若未出现报错信息则为安装成功
+若未出现报错信息则为安装成功
 
 # 3、使用
 
-输入sudo xdocker可查看简易使用说明
+输入```sudo xdocker```可查看简易使用说明
 
 ```
 使用方法 : xdocker -v
